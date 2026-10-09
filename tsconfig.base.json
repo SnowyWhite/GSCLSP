@@ -1,0 +1,15 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"target": "ES2023",
+		"lib": ["es2024"],
+		"module": "preserve",
+		"moduleResolution": "bundler",
+		"types": ["node"],
+		"strict": true,
+		"noEmit": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true
+	}
+}

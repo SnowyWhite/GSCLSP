@@ -1,0 +1,21 @@
+{
+	"name": "gsc-language-server-monorepo",
+	"private": true,
+	"license": "MIT",
+	"type": "module",
+	"workspaces": ["packages/core", "packages/server"],
+	"scripts": {
+		"build:data": "tsx build/ --api https://muhlex.github.io/gsc-doc/ --engine iw3 --engine iw4",
+		"build": "npm run build:data && npm run build -w packages/server",
+		"typecheck": "tsc -p build && npm run typecheck --workspaces",
+		"test": "npm test --workspaces --if-present",
+		"check": "biome check",
+		"fix": "biome check --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^22.9.0",
+		"tsx": "^4.19.2",
+		"typescript": "^5.6.3"
+	}
+}
