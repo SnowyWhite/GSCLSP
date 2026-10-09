@@ -48,7 +48,7 @@ export class Stores {
 		const previous = this.currentSettings;
 		this.currentSettings = settings;
 		this.static.onSettingsChanged(previous, settings);
-		this.gsc.onSettingsChanged(previous, settings);
+		this.gsc.onRootDirectoriesChanged();
 	}
 
 	/**

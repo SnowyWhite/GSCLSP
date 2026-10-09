@@ -1,6 +1,12 @@
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { type Settings, Stores, loadEngines, normalizeUri } from "@gsc-language-server/core";
+import {
+	type Settings,
+	Stores,
+	loadEngines,
+	normalizeUri,
+	uriToFsPath,
+} from "@gsc-language-server/core";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import {
 	DidChangeConfigurationNotification,
@@ -46,6 +52,8 @@ const openDocuments = new Map<string, TextDocument>();
 let server: Server;
 let configuration: Configuration;
 let watcher: RootDirectoriesWatcher;
+/** Workspace folder URIs; the default engine's fallback root directories. */
+let workspaceFolderUris: string[] = [];
 
 /**
  * Resolves once the client settings were first applied. Requests wait for it, as they would
@@ -57,48 +65,56 @@ const settingsReady = new Promise<void>((resolve) => {
 	onSettingsReady = resolve;
 });
 
-connection.onInitialize(async ({ capabilities, initializationOptions }) => {
-	const engines = await loadEngines(dataDir);
-	configuration = new Configuration(connection, engines, capabilities, initializationOptions);
+connection.onInitialize(
+	async ({ capabilities, initializationOptions, workspaceFolders, rootUri }) => {
+		const engines = await loadEngines(dataDir);
+		configuration = new Configuration(connection, engines, capabilities, initializationOptions);
 
-	const stores = new Stores({
-		engines,
-		dataDir,
-		settings: configuration.settings,
-		openDocuments: { get: (uri) => openDocuments.get(uri) },
-		// A notification (`window/showMessage`): the server does not wait for the user to react.
-		warn: (message) =>
-			connection.sendNotification(ShowMessageNotification.type, {
-				type: MessageType.Warning,
-				message,
-			}),
-	});
-	await stores.init();
+		const stores = new Stores({
+			engines,
+			dataDir,
+			settings: configuration.settings,
+			openDocuments: { get: (uri) => openDocuments.get(uri) },
+			// A notification (`window/showMessage`): the server does not wait for the user to react.
+			warn: (message) =>
+				connection.sendNotification(ShowMessageNotification.type, {
+					type: MessageType.Warning,
+					message,
+				}),
+		});
+		await stores.init();
+		workspaceFolderUris = workspaceFolders?.map(({ uri }) => uri) ?? (rootUri ? [rootUri] : []);
+		stores.gsc.setWorkspaceFolders(workspaceFolderUris.flatMap((uri) => uriToFsPath(uri) ?? []));
 
-	server = {
-		stores,
-		documents,
-		capabilities,
-		toClientUri: (file) => openDocuments.get(file.uri)?.uri ?? file.uri,
-	};
-	watcher = new RootDirectoriesWatcher(connection, capabilities, (fsPath, kind) =>
-		stores.gsc.onFileEvent(fsPath, kind),
-	);
+		server = {
+			stores,
+			documents,
+			capabilities,
+			toClientUri: (file) => openDocuments.get(file.uri)?.uri ?? file.uri,
+		};
+		watcher = new RootDirectoriesWatcher(connection, capabilities, (fsPath, kind) =>
+			stores.gsc.onFileEvent(fsPath, kind),
+		);
 
-	return {
-		capabilities: {
-			textDocumentSync: TextDocumentSyncKind.Incremental,
-			definitionProvider: true,
-			colorProvider: true,
-			completionProvider: { triggerCharacters: completionTriggerCharacters, resolveProvider: true },
-			hoverProvider: true,
-			signatureHelpProvider: { triggerCharacters: ["(", ","] },
-			semanticTokensProvider: { legend: semanticTokensLegend, full: true, range: true },
-			inlayHintProvider: true,
-		},
-		serverInfo: { name: "gsc-language-server", version },
-	};
-});
+		return {
+			capabilities: {
+				textDocumentSync: TextDocumentSyncKind.Incremental,
+				definitionProvider: true,
+				colorProvider: true,
+				completionProvider: {
+					triggerCharacters: completionTriggerCharacters,
+					resolveProvider: true,
+				},
+				hoverProvider: true,
+				signatureHelpProvider: { triggerCharacters: ["(", ","] },
+				semanticTokensProvider: { legend: semanticTokensLegend, full: true, range: true },
+				inlayHintProvider: true,
+				workspace: { workspaceFolders: { supported: true, changeNotifications: true } },
+			},
+			serverInfo: { name: "gsc-language-server", version },
+		};
+	},
+);
 
 connection.onInitialized(async () => {
 	const { capabilities } = server;
@@ -107,6 +123,18 @@ connection.onInitialized(async () => {
 		capabilities.workspace?.didChangeConfiguration?.dynamicRegistration
 	) {
 		await connection.client.register(DidChangeConfigurationNotification.type, { section: "GSC" });
+	}
+	if (capabilities.workspace?.workspaceFolders) {
+		connection.workspace.onDidChangeWorkspaceFolders(async ({ added, removed }) => {
+			const removedUris = new Set(removed.map(({ uri }) => uri));
+			workspaceFolderUris = [
+				...workspaceFolderUris.filter((uri) => !removedUris.has(uri)),
+				...added.map(({ uri }) => uri),
+			];
+			const { stores } = server;
+			stores.gsc.setWorkspaceFolders(workspaceFolderUris.flatMap((uri) => uriToFsPath(uri) ?? []));
+			await applyRootDirectories();
+		});
 	}
 	try {
 		await applySettings(await configuration.refresh());
@@ -120,9 +148,13 @@ connection.onDidChangeConfiguration(async ({ settings }) => {
 });
 
 const applySettings = async (settings: Settings) => {
-	const { stores, capabilities } = server;
-	stores.settings = settings;
+	server.stores.settings = settings;
+	await applyRootDirectories();
+};
 
+/** Watches and scans the current root directories, then lets the client refresh derived views. */
+const applyRootDirectories = async () => {
+	const { stores, capabilities } = server;
 	const roots = stores.engines.flatMap((engine) => stores.gsc.getRootDirectories(engine.id));
 	await watcher.update(roots);
 

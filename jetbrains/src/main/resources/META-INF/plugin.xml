@@ -1,0 +1,36 @@
+<idea-plugin>
+	<id>gsc-language-server</id>
+	<name>GSC Language Server</name>
+	<vendor>gsc-language-server</vendor>
+	<description><![CDATA[
+	<p>Language support for Call of Duty GSC (game script, IW3 and IW4) through a language server:
+	code completion, hover documentation, signature help, go to definition, semantic highlighting,
+	parameter name inlay hints, a color picker for color vectors and TextMate syntax highlighting.</p>
+	<p>Configure it under <b>Settings | Languages &amp; Frameworks | GSC</b>. Without configured root
+	directories, the project folder is used.</p>
+	]]></description>
+
+	<depends>com.intellij.modules.platform</depends>
+	<depends>com.redhat.devtools.lsp4ij</depends>
+	<depends>org.jetbrains.plugins.textmate</depends>
+
+	<extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
+		<server id="gscLanguageServer"
+				name="GSC Language Server"
+				factoryClass="gsclanguageserver.GscLanguageServerFactory">
+			<description><![CDATA[Language server for Call of Duty GSC (game script).]]></description>
+		</server>
+		<!-- File name patterns rather than a file type, so TextMate highlighting stays active: -->
+		<fileNamePatternMapping patterns="*.gsc;*.csc"
+								serverId="gscLanguageServer"
+								languageId="gsc"/>
+	</extensions>
+
+	<extensions defaultExtensionNs="com.intellij">
+		<textmate.bundleProvider implementation="gsclanguageserver.GscTextMateBundleProvider"/>
+		<projectConfigurable parentId="language"
+							 instance="gsclanguageserver.GscConfigurable"
+							 id="gsclanguageserver.settings"
+							 displayName="GSC"/>
+	</extensions>
+</idea-plugin>

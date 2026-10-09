@@ -1,0 +1,87 @@
+# Publishes a GitHub release for a `v*` tag (e.g. v0.0.1, matching the package and plugin version):
+# - gsc-language-server-<os>-<arch>.zip: standalone server (no Node.js needed) with its data,
+#   downloaded by the LSP4IJ template installer and by the JetBrains plugin when Node.js is missing
+# - gsc-language-server-lsp4ij-template.zip, gsc-language-server-textmate.zip
+# - gsc-language-server-jetbrains-<version>.zip: the JetBrains plugin
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  standalone:
+    strategy:
+      matrix:
+        include:
+          - { os: windows-latest, platform: windows-x64 }
+          - { os: ubuntu-latest, platform: linux-x64 }
+          - { os: macos-latest, platform: macos-arm64 }
+          - { os: macos-15-intel, platform: macos-x64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
+      - run: npm run build:sea -w packages/server
+      - name: Package
+        shell: pwsh
+        run: |
+          $dist = "packages/server/dist"
+          $exe = if ($IsWindows) { "gsc-language-server.exe" } else { "gsc-language-server" }
+          Compress-Archive -Path "$dist/$exe", "$dist/data" -DestinationPath "gsc-language-server-${{ matrix.platform }}.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: standalone-${{ matrix.platform }}
+          path: gsc-language-server-${{ matrix.platform }}.zip
+
+  jetbrains:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - run: npm ci
+      # GITHUB_REPOSITORY makes the LSP4IJ template and the plugin download from this repository.
+      - run: npm run build
+      - name: Package template and TextMate bundle
+        working-directory: packages/server/dist
+        run: |
+          (cd lsp4ij && zip -r ../../../../gsc-language-server-lsp4ij-template.zip .)
+          (cd textmate && zip -r ../../../../gsc-language-server-textmate.zip .)
+      - name: Build plugin
+        working-directory: jetbrains
+        run: |
+          ./gradlew buildPlugin "-PpluginVersion=${GITHUB_REF_NAME#v}"
+          cp build/distributions/*.zip ../gsc-language-server-jetbrains-${GITHUB_REF_NAME#v}.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jetbrains
+          path: |
+            gsc-language-server-lsp4ij-template.zip
+            gsc-language-server-textmate.zip
+            gsc-language-server-jetbrains-*.zip
+
+  release:
+    needs: [standalone, jetbrains]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: assets
+          merge-multiple: true
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" assets/* --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes

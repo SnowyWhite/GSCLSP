@@ -122,3 +122,114 @@ export const resolveSettings = (engines: readonly Engine[], ...sources: unknown[
 
 	return result;
 };
+
+/** JSON Schema of `{ "GSC": Settings }`, for editors of the settings JSON (e.g. LSP4IJ). */
+export const createSettingsSchema = (engines: readonly Engine[]) => {
+	const defaults = createDefaultSettings(engines);
+	const perEngine = (createSchema: (engine: Engine) => object) => ({
+		type: "object",
+		properties: Object.fromEntries(engines.map((engine) => [engine.id, createSchema(engine)])),
+		additionalProperties: false,
+	});
+	const enumSetting = (description: string, values: string[], fallback: string) => ({
+		description,
+		type: "string",
+		enum: values,
+		default: fallback,
+	});
+	const { intelliSense } = defaults;
+
+	return {
+		$schema: "http://json-schema.org/draft-07/schema#",
+		type: "object",
+		properties: {
+			[SETTINGS_SECTION]: {
+				type: "object",
+				additionalProperties: false,
+				properties: {
+					rootDirectories: {
+						description:
+							"Root directories with stock or custom scripts per engine. Later directories take precedence. Without any, the default engine uses the project folders.",
+						...perEngine((engine) => ({
+							description: engine.gameTitle,
+							type: "array",
+							items: { type: "string" },
+							default: [],
+						})),
+					},
+					featureSets: {
+						description: "Engine feature sets used for completion and semantic highlighting.",
+						...perEngine((engine) => ({
+							description: engine.gameTitle,
+							type: "object",
+							additionalProperties: false,
+							properties: Object.fromEntries(
+								engine.featuresets.map((featureset) => [
+									featureset.id,
+									{
+										description: featureset.description,
+										type: "boolean",
+										default: featureset.enabledByDefault,
+									},
+								]),
+							),
+						})),
+					},
+					defaultEngine: enumSetting(
+						"Engine of files outside of all root directories.",
+						engines.map((engine) => engine.id),
+						defaults.defaultEngine,
+					),
+					intelliSense: {
+						type: "object",
+						additionalProperties: false,
+						properties: {
+							enable: {
+								type: "object",
+								additionalProperties: false,
+								properties: {
+									keywords: {
+										description: "Suggest keywords (if, for, switch, ...).",
+										type: "boolean",
+										default: intelliSense.enable.keywords,
+									},
+									callablesGame: enumSetting(
+										"Suggest inbuilt (engine) functions and methods.",
+										["off", "non-deprecated", "all"],
+										intelliSense.enable.callablesGame,
+									),
+									callablesScript: {
+										description: "Suggest script-defined functions and methods.",
+										type: "boolean",
+										default: intelliSense.enable.callablesScript,
+									},
+								},
+							},
+							conciseMode: {
+								description: "Make documentation entries more concise.",
+								type: "boolean",
+								default: intelliSense.conciseMode,
+							},
+							foldersSorting: enumSetting(
+								"Sorting of folders when suggesting script paths.",
+								["top", "bottom", "inline"],
+								intelliSense.foldersSorting,
+							),
+						},
+					},
+					colors: {
+						type: "object",
+						additionalProperties: false,
+						properties: {
+							enable: enumSetting(
+								"Show a color picker on vectors: never, only when all components are quotients (e.g. 255/255), or always.",
+								["off", "quotients", "all"],
+								defaults.colors.enable,
+							),
+						},
+					},
+				},
+			},
+		},
+	};
+};

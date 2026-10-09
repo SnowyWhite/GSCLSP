@@ -37,6 +37,9 @@ settings are keyed by engine ID (`iw3`, `iw4`):
 A document's engine is, in order: the engine of the root directory containing it, the engine of its
 language ID if it is engine-specific (`gsc-iw3`), `defaultEngine`.
 
+If `defaultEngine` has no root directories, the workspace folders are its root directories, so
+opening a scripts folder works without configuration.
+
 Root directories are watched with `workspace/didChangeWatchedFiles` if the client supports
 relative-pattern watchers, otherwise by the server itself.
 

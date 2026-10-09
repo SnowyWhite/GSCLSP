@@ -45,6 +45,7 @@ const startSession = async (options: {
 	capabilities: ClientCapabilities;
 	initializationOptions?: unknown;
 	configuration?: unknown;
+	workspaceFolders?: string[];
 }): Promise<Session> => {
 	const child = spawn(
 		process.execPath,
@@ -65,6 +66,9 @@ const startSession = async (options: {
 	await connection.sendRequest(InitializeRequest.type, {
 		processId: process.pid,
 		rootUri: null,
+		workspaceFolders:
+			options.workspaceFolders?.map((path) => ({ uri: pathToFileURL(path).href, name: "root" })) ??
+			null,
 		capabilities: options.capabilities,
 		initializationOptions: options.initializationOptions,
 	});
@@ -282,4 +286,23 @@ describe("language server settings", () => {
 			}
 		},
 	);
+
+	it("uses workspace folders as the default engine's root directories", async () => {
+		const root = join(fixturesDir, "root");
+		const session = await startSession({ capabilities: {}, workspaceFolders: [root] });
+		try {
+			const path = join(root, "maps", "mp", "gametypes", "dm.gsc");
+			const uri = pathToFileURL(path).href;
+			await session.connection.sendNotification(DidOpenTextDocumentNotification.type, {
+				textDocument: { uri, languageId: "gsc", version: 1, text: await readFile(path, "utf-8") },
+			});
+			const locations = (await session.connection.sendRequest(DefinitionRequest.type, {
+				textDocument: { uri },
+				position: { line: 4, character: 3 },
+			})) as { uri: string }[] | null;
+			assert.ok(locations?.[0]?.uri.endsWith("_utility.gsc"), JSON.stringify(locations));
+		} finally {
+			await stopSession(session);
+		}
+	});
 });

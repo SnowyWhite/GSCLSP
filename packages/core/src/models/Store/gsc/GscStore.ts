@@ -22,7 +22,12 @@ export class GscStore {
 	private readonly options: GscStoreOptions;
 
 	private readonly files: Map<string, GscFile>;
-	private readonly filesystems: Map<Engine["id"], Promise<ScriptFilesystem>>;
+	/** Script filesystems by engine, with the root directories they were created for. */
+	private readonly filesystems: Map<
+		Engine["id"],
+		{ roots: string; filesystem: Promise<ScriptFilesystem> }
+	>;
+	private workspaceFolders: readonly string[] = [];
 	private readonly scriptsByFile: SetMap<GscFile, Script>;
 
 	constructor(options: GscStoreOptions) {
@@ -53,29 +58,41 @@ export class GscStore {
 
 	/** Script filesystem of an engine's root directories, scanned before the promise resolves. */
 	getFilesystem(engineId: Engine["id"]) {
-		let filesystem = this.filesystems.get(engineId);
-		if (!filesystem) {
+		let entry = this.filesystems.get(engineId);
+		if (!entry) {
 			const roots = this.getRootDirectories(engineId);
 			const instance = new ScriptFilesystem(engineId, roots, this);
-			filesystem = instance.init(this.options.warn).then(() => instance);
-			this.filesystems.set(engineId, filesystem);
+			const filesystem = instance.init(this.options.warn).then(() => instance);
+			entry = { roots: JSON.stringify(roots), filesystem };
+			this.filesystems.set(engineId, entry);
 		}
-		return filesystem;
+		return entry.filesystem;
 	}
 
-	/** Absolute root directories of an engine, lowest precedence first. */
+	/**
+	 * Absolute root directories of an engine, lowest precedence first. Without configured root
+	 * directories, the default engine uses the workspace folders, so opening a mod or `raw` folder
+	 * as the project works without configuration.
+	 */
 	getRootDirectories(engineId: Engine["id"]) {
-		const paths = this.options.getSettings().rootDirectories[engineId] ?? [];
+		const settings = this.options.getSettings();
+		const paths = settings.rootDirectories[engineId] ?? [];
+		if (paths.length === 0 && engineId === settings.defaultEngine)
+			return [...this.workspaceFolders];
 		return paths.map((path) => resolve(path));
 	}
 
-	onSettingsChanged(previous: Settings, current: Settings) {
-		for (const { id } of this.options.engines) {
-			const before = JSON.stringify(previous.rootDirectories[id] ?? []);
-			const after = JSON.stringify(current.rootDirectories[id] ?? []);
-			if (before === after) continue;
-			this.filesystems.get(id)?.then((filesystem) => filesystem.dispose());
-			this.filesystems.delete(id);
+	setWorkspaceFolders(fsPaths: readonly string[]) {
+		this.workspaceFolders = fsPaths.map((path) => resolve(path));
+		this.onRootDirectoriesChanged();
+	}
+
+	/** Drops filesystems whose root directories changed; they are rebuilt on the next request. */
+	onRootDirectoriesChanged() {
+		for (const [engineId, entry] of this.filesystems) {
+			if (entry.roots === JSON.stringify(this.getRootDirectories(engineId))) continue;
+			entry.filesystem.then((filesystem) => filesystem.dispose());
+			this.filesystems.delete(engineId);
 		}
 	}
 
@@ -97,7 +114,8 @@ export class GscStore {
 
 	/** A file in a root directory was created, changed or deleted on disk. */
 	async onFileEvent(fsPath: string, kind: FileEventKind) {
-		const filesystems = await Promise.all(this.filesystems.values());
+		const entries = [...this.filesystems.values()];
+		const filesystems = await Promise.all(entries.map(({ filesystem }) => filesystem));
 		for (const filesystem of filesystems) filesystem.onFileEvent(fsPath, kind);
 	}
 

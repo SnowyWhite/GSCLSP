@@ -1,7 +1,12 @@
 import { cp, mkdir, rm, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
-import { SETTINGS_SECTION, createDefaultSettings, loadEngines } from "@gsc-language-server/core";
+import {
+	SETTINGS_SECTION,
+	createDefaultSettings,
+	createSettingsSchema,
+	loadEngines,
+} from "@gsc-language-server/core";
 import { build } from "esbuild";
 
 /**
@@ -16,6 +21,8 @@ const args = parseArgs({ options: { "bundle-only": { type: "boolean", default: f
 const packageDir = join(import.meta.dirname, "..");
 const distDir = join(packageDir, "dist");
 const dataDir = join(packageDir, "..", "..", "data");
+/** Release assets are `<prefix>-<os>-<arch>.zip`, see .github/workflows/release.yml. */
+const releaseAssetPrefix = "gsc-language-server";
 
 // A bundle-only build (used by the tests) keeps previously built assets.
 if (!args["bundle-only"]) await rm(distDir, { recursive: true, force: true });
@@ -67,7 +74,61 @@ async function writeLsp4ijTemplate(dir: string) {
 	await writeJSON(join(dir, "settings.json"), {
 		[SETTINGS_SECTION]: createDefaultSettings(engines),
 	});
+	await writeJSON(join(dir, "settings.schema.json"), createSettingsSchema(engines));
 	await cp(join(packageDir, "lsp4ij", "README.md"), join(dir, "README.md"));
+
+	// The installer downloads the standalone executable from the GitHub releases of this repository
+	// (`owner/name`, set by GitHub Actions). Release assets: see .github/workflows/release.yml.
+	const repository = process.env.GITHUB_REPOSITORY;
+	if (!repository) {
+		console.warn("GITHUB_REPOSITORY is not set: the LSP4IJ template has no installer.json.");
+		return;
+	}
+	const [owner, name] = repository.split("/");
+	await writeJSON(join(dir, "installer.json"), {
+		id: "gsc-language-server-installer",
+		name: "GSC language server",
+		executeOnStartServer: false,
+		check: {
+			exec: { name: "Trying current command", command: "${server.command}", timeout: 2000 },
+		},
+		run: {
+			download: {
+				name: "Download the GSC language server",
+				github: {
+					owner,
+					repository: name,
+					prerelease: false,
+					asset: {
+						windows: `${releaseAssetPrefix}-windows-x64.zip`,
+						unix: { amd64: `${releaseAssetPrefix}-linux-x64.zip` },
+						mac: {
+							aarch64: `${releaseAssetPrefix}-macos-arm64.zip`,
+							amd64: `${releaseAssetPrefix}-macos-x64.zip`,
+						},
+					},
+				},
+				output: {
+					dir: "$USER_HOME$/.lsp4ij/lsp/gsc-language-server",
+					file: {
+						name: {
+							windows: "gsc-language-server.exe",
+							unix: "gsc-language-server",
+							mac: "gsc-language-server",
+						},
+						executable: true,
+					},
+				},
+				onSuccess: {
+					configureServer: {
+						name: "Configure the GSC language server command",
+						command: '"${output.dir}/${output.file.name}" --stdio',
+						update: true,
+					},
+				},
+			},
+		},
+	});
 }
 
 async function writeTextMateBundle(dir: string) {
