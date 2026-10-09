@@ -1,13 +1,13 @@
 # Emacs
 
-Requires Emacs 29.1+ (for the built-in Eglot) and `gsc-language-server` on the `PATH` (or
+Requires Emacs 29.1+ (for the built-in Eglot) and `gsclsp` on the `PATH` (or
 `exec-path`, see the main README).
 
 `gsc-mode.el` provides `gsc-mode` for `*.gsc`/`*.csc` (highlighting, comments, indentation) and
-registers gsc-language-server with Eglot.
+registers gsclsp with Eglot.
 
 ```elisp
-(add-to-list 'load-path "path/to/gsc-language-server/editors/emacs")
+(add-to-list 'load-path "path/to/GSCLSP/editors/emacs")
 (require 'gsc-mode)
 (add-hook 'gsc-mode-hook #'eglot-ensure)
 ```
@@ -16,7 +16,7 @@ Or with `use-package`:
 
 ```elisp
 (use-package gsc-mode
-  :load-path "path/to/gsc-language-server/editors/emacs"
+  :load-path "path/to/GSCLSP/editors/emacs"
   :hook (gsc-mode . eglot-ensure))
 ```
 
@@ -28,9 +28,9 @@ the default engine's root directory. Set `gsc-language-server-command` if the se
 
 ```elisp
 (setq gsc-language-server-command
-      '("D:/tools/gsc-language-server/gsc-language-server.exe" "--stdio"))
+      '("/path/to/gsclsp" "--stdio"))
 (setq-default eglot-workspace-configuration
               '(:GSC (:defaultEngine "iw4"
-                      :rootDirectories (:iw4 ["D:/iw4x/raw"]))))
+                      :rootDirectories (:iw4 ["/path/to/iw4x/raw"]))))
 ```
 

@@ -15,7 +15,7 @@ const blobPath = join(distDir, "sea-prep.blob");
 const configPath = join(distDir, "sea-config.json");
 const executablePath = join(
 	distDir,
-	process.platform === "win32" ? "gsc-language-server.exe" : "gsc-language-server",
+	process.platform === "win32" ? "gsclsp.exe" : "gsclsp",
 );
 
 await stat(serverPath).catch(() => {

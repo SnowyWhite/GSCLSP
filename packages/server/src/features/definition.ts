@@ -1,4 +1,4 @@
-import { type Range, getWordRangeAtPosition, isRangeEqual } from "@gsc-language-server/core";
+import { type Range, getWordRangeAtPosition, isRangeEqual } from "@gsclsp/core";
 import type {
 	CancellationToken,
 	DefinitionParams,

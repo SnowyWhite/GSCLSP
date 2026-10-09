@@ -1,10 +1,14 @@
-# gsc-language-server
+# gsclsp
 
 Language server for Call of Duty GSC (game script): completion, hover, signature help, go to
 definition, semantic tokens, inlay hints and document colors.
 
+Run the standalone executable from a [GitHub release](https://github.com/SnowyWhite/GSCLSP/releases)
+(keep `data/` next to it, no Node.js needed), or the bundle with Node.js 20.19+:
+
 ```sh
-npx gsc-language-server --stdio
+gsclsp --stdio          # standalone executable
+node dist/server.js --stdio          # after `npm run build`
 ```
 
 Options:
@@ -50,5 +54,5 @@ relative-pattern watchers, otherwise by the server itself.
 
 ## Standalone executable
 
-`npm run build:sea` builds `dist/gsc-language-server(.exe)`, a Node.js single executable application
+`npm run build:sea` builds `dist/gsclsp(.exe)`, a Node.js single executable application
 that doesn't need Node.js installed. Keep the `data` directory next to it.

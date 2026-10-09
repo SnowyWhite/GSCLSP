@@ -1,4 +1,4 @@
-package gsclanguageserver
+package gsclsp
 
 import com.google.gson.JsonObject
 import com.intellij.execution.configurations.GeneralCommandLine
@@ -34,11 +34,11 @@ class GscLanguageServerFactory : LanguageServerFactory {
  */
 object GscServerCommand {
 	private val standaloneDir: Path
-		get() = PathManager.getSystemDir().resolve("gsc-language-server").resolve(GscPlugin.version)
+		get() = PathManager.getSystemDir().resolve("gsclsp").resolve(GscPlugin.version)
 
 	val standaloneExecutable: Path
 		get() = standaloneDir.resolve(
-			if (System.getProperty("os.name").startsWith("Windows")) "gsc-language-server.exe" else "gsc-language-server",
+			if (System.getProperty("os.name").startsWith("Windows")) "gsclsp.exe" else "gsclsp",
 		)
 
 	private fun findNode() = PathEnvironmentVariableUtil.findExecutableInPathOnAnyOS("node")
@@ -62,10 +62,11 @@ object GscServerCommand {
 	fun downloadStandalone(indicator: ProgressIndicator) {
 		val repository = GscPlugin.githubRepository
 		check(repository.isNotEmpty()) {
-			"Node.js was not found on the PATH. Install Node.js or set a server path under Settings | Languages & Frameworks | GSC."
+			"Node.js was not found on the PATH and this build of the plugin has no release repository to download the standalone server from. " +
+				"Install Node.js or set a server path under Settings | Languages & Frameworks | GSC."
 		}
 		val url = "https://github.com/$repository/releases/download/v${GscPlugin.version}/${GscPlugin.releaseAsset}"
-		val archive = Files.createTempFile("gsc-language-server", ".zip")
+		val archive = Files.createTempFile("gsclsp", ".zip")
 		try {
 			HttpRequests.request(url).saveToFile(archive, indicator)
 			Decompressor.Zip(archive).extract(standaloneDir)

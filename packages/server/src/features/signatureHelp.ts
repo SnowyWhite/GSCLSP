@@ -1,4 +1,4 @@
-import type { CallableDef } from "@gsc-language-server/core";
+import type { CallableDef } from "@gsclsp/core";
 import {
 	type CancellationToken,
 	MarkupKind,

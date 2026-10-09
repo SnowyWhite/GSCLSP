@@ -6,7 +6,7 @@ import {
 	createDefaultSettings,
 	createSettingsSchema,
 	loadEngines,
-} from "@gsc-language-server/core";
+} from "@gsclsp/core";
 import { build } from "esbuild";
 
 /**
@@ -22,7 +22,9 @@ const packageDir = join(import.meta.dirname, "..");
 const distDir = join(packageDir, "dist");
 const dataDir = join(packageDir, "..", "..", "data");
 /** Release assets are `<prefix>-<os>-<arch>.zip`, see .github/workflows/release.yml. */
-const releaseAssetPrefix = "gsc-language-server";
+const releaseAssetPrefix = "gsclsp";
+/** Repository whose releases the LSP4IJ installer downloads from; GitHub Actions overrides it for forks. */
+const repository = process.env.GITHUB_REPOSITORY || "SnowyWhite/GSCLSP";
 
 // A bundle-only build (used by the tests) keeps previously built assets.
 if (!args["bundle-only"]) await rm(distDir, { recursive: true, force: true });
@@ -48,9 +50,10 @@ if (!args["bundle-only"]) {
 		throw new Error(`Missing ${dataDir}. Run "npm run build:data" in the repository root.`);
 
 	await cp(dataDir, join(distDir, "data"), { recursive: true });
+	await cp(join(packageDir, "..", "..", "LICENSE"), join(distDir, "LICENSE"));
 	await writeLsp4ijTemplate(join(distDir, "lsp4ij"));
 	await writeTextMateBundle(join(distDir, "textmate"));
-	console.log("Wrote dist/data, dist/lsp4ij and dist/textmate.");
+	console.log("Wrote dist/data, dist/LICENSE, dist/lsp4ij and dist/textmate.");
 }
 
 async function writeJSON(path: string, data: unknown) {
@@ -62,12 +65,11 @@ async function writeLsp4ijTemplate(dir: string) {
 	await mkdir(dir, { recursive: true });
 
 	await writeJSON(join(dir, "template.json"), {
-		id: "gsc-language-server",
+		id: "gsclsp",
 		name: "GSC (Call of Duty)",
-		programArgs: {
-			default: 'sh -c "npx --yes gsc-language-server --stdio"',
-			windows: "npx.cmd --yes gsc-language-server --stdio",
-		},
+		// The installer replaces this with the downloaded standalone executable; until then it
+		// expects the `gsclsp` standalone executable on the PATH.
+		programArgs: { default: "gsclsp --stdio" },
 		// File name patterns rather than a file type, so TextMate highlighting stays active:
 		fileTypeMappings: [{ fileType: { patterns: ["*.gsc", "*.csc"] }, languageId: "gsc" }],
 	});
@@ -76,18 +78,13 @@ async function writeLsp4ijTemplate(dir: string) {
 	});
 	await writeJSON(join(dir, "settings.schema.json"), createSettingsSchema(engines));
 	await cp(join(packageDir, "lsp4ij", "README.md"), join(dir, "README.md"));
+	await cp(join(distDir, "LICENSE"), join(dir, "LICENSE"));
 
-	// The installer downloads the standalone executable from the GitHub releases of this repository
-	// (`owner/name`, set by GitHub Actions). Release assets: see .github/workflows/release.yml.
-	const repository = process.env.GITHUB_REPOSITORY;
-	if (!repository) {
-		console.warn("GITHUB_REPOSITORY is not set: the LSP4IJ template has no installer.json.");
-		return;
-	}
+	// The installer downloads the standalone executable from GitHub releases, see .github/workflows/release.yml.
 	const [owner, name] = repository.split("/");
 	await writeJSON(join(dir, "installer.json"), {
-		id: "gsc-language-server-installer",
-		name: "GSC language server",
+		id: "gsclsp-installer",
+		name: "GSCLSP",
 		executeOnStartServer: false,
 		check: {
 			exec: { name: "Trying current command", command: "${server.command}", timeout: 2000 },
@@ -109,12 +106,12 @@ async function writeLsp4ijTemplate(dir: string) {
 					},
 				},
 				output: {
-					dir: "$USER_HOME$/.lsp4ij/lsp/gsc-language-server",
+					dir: "$USER_HOME$/.lsp4ij/lsp/gsclsp",
 					file: {
 						name: {
-							windows: "gsc-language-server.exe",
-							unix: "gsc-language-server",
-							mac: "gsc-language-server",
+							windows: "gsclsp.exe",
+							unix: "gsclsp",
+							mac: "gsclsp",
 						},
 						executable: true,
 					},
@@ -134,6 +131,7 @@ async function writeLsp4ijTemplate(dir: string) {
 async function writeTextMateBundle(dir: string) {
 	await mkdir(dir, { recursive: true });
 	await cp(join(dataDir, "grammar.json"), join(dir, "grammar.json"));
+	await cp(join(distDir, "LICENSE"), join(dir, "LICENSE"));
 	await writeJSON(join(dir, "package.json"), {
 		name: "gsc-textmate",
 		displayName: "GSC (Call of Duty)",

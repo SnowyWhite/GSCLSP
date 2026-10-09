@@ -8,7 +8,7 @@ import {
 	getLineText,
 	removeFileExtension,
 	uriToFsPath,
-} from "@gsc-language-server/core";
+} from "@gsclsp/core";
 import {
 	type CancellationToken,
 	type CompletionItem,
@@ -211,7 +211,7 @@ export const resolveCompletionItem = async (
 	if (!def) return item;
 
 	const concise = server.stores.settings.intelliSense.conciseMode;
-	return { ...item, documentation: createDocumentation(def, engine.languageId, { concise }) };
+	return { ...item, documentation: createDocumentation(def, { concise }) };
 };
 
 const createCallableCompletionItem = (

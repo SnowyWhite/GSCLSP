@@ -1,6 +1,6 @@
-# GSC Language Server for VS Code
+# GSCLSP for VS Code
 
-Call of Duty GSC (game script, IW3 and IW4) support through gsc-language-server: code completion,
+Call of Duty GSC (game script, IW3 and IW4) support through gsclsp: code completion,
 hover documentation, signature help,
 go to definition, semantic and TextMate highlighting, parameter name inlay hints and a color picker
 for color vectors. The language server is bundled; no further installation is needed.

@@ -1,4 +1,4 @@
-import { getWordRangeAtPosition, isRangeEqual } from "@gsc-language-server/core";
+import { getWordRangeAtPosition, isRangeEqual } from "@gsclsp/core";
 import {
 	type CancellationToken,
 	type Hover,
@@ -26,7 +26,7 @@ export const provideHover = async (
 	const def = usage && getDef(usage);
 	if (!def) return;
 
-	const documentation = createDocumentation(def, engine.languageId, {
+	const documentation = createDocumentation(def, {
 		concise: settings.intelliSense.conciseMode,
 		example: false,
 	});

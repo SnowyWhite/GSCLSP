@@ -29,11 +29,16 @@ export async function getJSON(input: string | URL) {
 		return JSON.parse(text);
 	}
 	const response = await fetch(url);
+	if (!response.ok) throw new Error(`${response.status} ${response.statusText} for ${url}`);
 	return response.json();
 }
 
-export async function writeJSON(path: string | URL, data: any) {
+export async function writeJSON(path: string | URL, data: unknown) {
+	await writeText(path, JSON.stringify(data));
+}
+
+export async function writeText(path: string | URL, text: string) {
 	const pathString = typeof path === "string" ? path : fileURLToPath(path);
 	await createDir(dirname(pathString));
-	await writeFile(path, JSON.stringify(data));
+	await writeFile(path, text);
 }

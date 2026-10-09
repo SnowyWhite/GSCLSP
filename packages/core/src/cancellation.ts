@@ -20,7 +20,3 @@ export class CancellationTokenSource {
 		this.cancelled = true;
 	}
 }
-
-export interface Disposable {
-	dispose(): void;
-}

@@ -7,7 +7,7 @@ plugins {
 	id("org.jetbrains.intellij.platform") version "2.19.0"
 }
 
-group = "gsclanguageserver"
+group = "gsclsp"
 version = providers.gradleProperty("pluginVersion").get()
 
 kotlin {
@@ -52,11 +52,11 @@ val serverDist = layout.projectDirectory.dir("../packages/server/dist")
 
 tasks {
 	processResources {
-		val githubRepository = providers.gradleProperty("githubRepository").orNull?.takeIf { it.isNotBlank() }
-			?: providers.environmentVariable("GITHUB_REPOSITORY").getOrElse("")
+		val githubRepository = providers.environmentVariable("GITHUB_REPOSITORY").orNull?.takeIf { it.isNotBlank() }
+			?: providers.gradleProperty("githubRepository").getOrElse("")
 		val properties = mapOf("version" to project.version.toString(), "githubRepository" to githubRepository)
 		inputs.properties(properties)
-		filesMatching("gsc-language-server.properties") { expand(properties) }
+		filesMatching("gsclsp.properties") { expand(properties) }
 	}
 
 	// All sandboxes (buildPlugin's and runIde's) get the server, its data and the TextMate bundle.
@@ -77,6 +77,9 @@ tasks {
 		from(serverDist.file("lsp4ij/settings.json")) {
 			into(pluginName.map { "$it/server" })
 			rename { "default-settings.json" }
+		}
+		from(serverDist.file("lsp4ij/settings.schema.json")) {
+			into(pluginName.map { "$it/server" })
 		}
 		// server.js is CommonJS; this keeps Node.js from treating it as an ES module when an enclosing
 		// directory has a `"type": "module"` package.json.

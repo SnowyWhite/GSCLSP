@@ -1,0 +1,5 @@
+{
+	"if": { "scopes": [{ "engine": "iw3" }] },
+	"else": { "scopes": [{ "engine": "iw3" }] },
+	"waittill": { "scopes": [{ "engine": "iw3" }] }
+}

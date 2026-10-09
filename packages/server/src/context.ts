@@ -1,4 +1,4 @@
-import type { Engine, GscFile, Settings, Stores } from "@gsc-language-server/core";
+import type { Engine, GscFile, Settings, Stores } from "@gsclsp/core";
 import type { ClientCapabilities, TextDocuments } from "vscode-languageserver";
 import type { TextDocument } from "vscode-languageserver-textdocument";
 

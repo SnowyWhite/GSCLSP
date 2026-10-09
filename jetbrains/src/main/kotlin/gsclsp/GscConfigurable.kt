@@ -1,4 +1,4 @@
-package gsclanguageserver
+package gsclsp
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -96,14 +96,14 @@ class GscConfigurable(private val project: Project) : BoundConfigurable("GSC") {
 					)
 			}
 			row("Engine functions:") {
-				comboBox(listOf("off", "non-deprecated", "all"))
+				comboBox(GscPlugin.settingOptions("intelliSense", "enable", "callablesGame"))
 					.bindItem(
 						{ string(objectAt("intelliSense", "enable"), "callablesGame") },
 						{ objectAt("intelliSense", "enable").addProperty("callablesGame", it) },
 					)
 			}
 			row("Folder sorting:") {
-				comboBox(listOf("inline", "top", "bottom"))
+				comboBox(GscPlugin.settingOptions("intelliSense", "foldersSorting"))
 					.bindItem(
 						{ string(objectAt("intelliSense"), "foldersSorting") },
 						{ objectAt("intelliSense").addProperty("foldersSorting", it) },
@@ -119,7 +119,7 @@ class GscConfigurable(private val project: Project) : BoundConfigurable("GSC") {
 		}
 
 		row("Color picker:") {
-			comboBox(listOf("off", "quotients", "all"))
+			comboBox(GscPlugin.settingOptions("colors", "enable"))
 				.bindItem({ string(objectAt("colors"), "enable") }, { objectAt("colors").addProperty("enable", it) })
 		}.rowComment("\"quotients\": only for vectors like (255/255, 128/255, 0/255).")
 

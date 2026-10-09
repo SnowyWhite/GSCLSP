@@ -1,4 +1,4 @@
-import { rangeContains, rangesIntersect } from "@gsc-language-server/core";
+import { rangeContains, rangesIntersect } from "@gsclsp/core";
 import {
 	type CancellationToken,
 	type InlayHint,

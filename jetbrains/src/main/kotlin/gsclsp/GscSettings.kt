@@ -1,4 +1,4 @@
-package gsclanguageserver
+package gsclsp
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -12,7 +12,7 @@ import com.intellij.util.messages.Topic
 
 /** Per-project settings: the server's `GSC` settings section and the server command. */
 @Service(Service.Level.PROJECT)
-@State(name = "GscLanguageServer", storages = [Storage("gsc-language-server.xml")])
+@State(name = "GscLanguageServer", storages = [Storage("gsclsp.xml")])
 class GscSettings(private val project: Project) : PersistentStateComponent<GscSettings.State> {
 	class State {
 		/** The `GSC` settings section as JSON, empty for the defaults. */

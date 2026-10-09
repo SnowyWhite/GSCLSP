@@ -20,7 +20,7 @@ export async function activate(context: ExtensionContext) {
 		documentSelector: [{ language: "gsc" }],
 	};
 
-	client = new LanguageClient("gsc", "GSC Language Server", serverOptions, clientOptions);
+	client = new LanguageClient("gsc", "GSCLSP", serverOptions, clientOptions);
 	await client.start();
 }
 

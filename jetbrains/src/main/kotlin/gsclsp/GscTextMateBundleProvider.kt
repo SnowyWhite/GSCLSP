@@ -1,4 +1,4 @@
-package gsclanguageserver
+package gsclsp
 
 import org.jetbrains.plugins.textmate.api.TextMateBundleProvider
 

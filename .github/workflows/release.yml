@@ -1,9 +1,9 @@
 # Publishes a GitHub release for a `v*` tag (e.g. v0.0.1, matching the package and plugin version):
-# - gsc-language-server-<os>-<arch>.zip: standalone server (no Node.js needed) with its data,
+# - gsclsp-<os>-<arch>.zip: standalone server (no Node.js needed) with its data,
 #   downloaded by the LSP4IJ template installer and by the JetBrains plugin when Node.js is missing
-# - gsc-language-server-lsp4ij-template.zip, gsc-language-server-textmate.zip
-# - gsc-language-server-jetbrains-<version>.zip: the JetBrains plugin
-# - gsc-language-server-vscode-<version>.vsix: the VS Code extension
+# - gsclsp-lsp4ij-template.zip, gsclsp-textmate.zip
+# - gsclsp-jetbrains-<version>.zip: the JetBrains plugin
+# - gsclsp-vscode-<version>.vsix: the VS Code extension
 name: Release
 
 on:
@@ -35,12 +35,12 @@ jobs:
         shell: pwsh
         run: |
           $dist = "packages/server/dist"
-          $exe = if ($IsWindows) { "gsc-language-server.exe" } else { "gsc-language-server" }
-          Compress-Archive -Path "$dist/$exe", "$dist/data" -DestinationPath "gsc-language-server-${{ matrix.platform }}.zip"
+          $exe = if ($IsWindows) { "gsclsp.exe" } else { "gsclsp" }
+          Compress-Archive -Path "$dist/$exe", "$dist/data", "$dist/LICENSE" -DestinationPath "gsclsp-${{ matrix.platform }}.zip"
       - uses: actions/upload-artifact@v4
         with:
           name: standalone-${{ matrix.platform }}
-          path: gsc-language-server-${{ matrix.platform }}.zip
+          path: gsclsp-${{ matrix.platform }}.zip
 
   jetbrains:
     runs-on: ubuntu-latest
@@ -59,13 +59,13 @@ jobs:
       - name: Package template and TextMate bundle
         working-directory: packages/server/dist
         run: |
-          (cd lsp4ij && zip -r ../../../../gsc-language-server-lsp4ij-template.zip .)
-          (cd textmate && zip -r ../../../../gsc-language-server-textmate.zip .)
+          (cd lsp4ij && zip -r ../../../../gsclsp-lsp4ij-template.zip .)
+          (cd textmate && zip -r ../../../../gsclsp-textmate.zip .)
       - name: Build plugin
         working-directory: jetbrains
         run: |
           ./gradlew buildPlugin "-PpluginVersion=${GITHUB_REF_NAME#v}"
-          cp build/distributions/*.zip ../gsc-language-server-jetbrains-${GITHUB_REF_NAME#v}.zip
+          cp build/distributions/*.zip ../gsclsp-jetbrains-${GITHUB_REF_NAME#v}.zip
       - name: Package VS Code extension
         run: |
           npm run package -w packages/vscode
@@ -74,10 +74,10 @@ jobs:
         with:
           name: jetbrains
           path: |
-            gsc-language-server-lsp4ij-template.zip
-            gsc-language-server-textmate.zip
-            gsc-language-server-jetbrains-*.zip
-            gsc-language-server-vscode-*.vsix
+            gsclsp-lsp4ij-template.zip
+            gsclsp-textmate.zip
+            gsclsp-jetbrains-*.zip
+            gsclsp-vscode-*.vsix
 
   release:
     needs: [standalone, jetbrains]

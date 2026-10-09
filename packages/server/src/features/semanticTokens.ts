@@ -1,4 +1,4 @@
-import type { Range } from "@gsc-language-server/core";
+import type { Range } from "@gsclsp/core";
 import {
 	type CancellationToken,
 	type SemanticTokens,

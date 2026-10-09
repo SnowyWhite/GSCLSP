@@ -1,5 +1,5 @@
 {
-	"name": "@gsc-language-server/core",
+	"name": "@gsclsp/core",
 	"version": "0.0.1",
 	"private": true,
 	"license": "MIT",

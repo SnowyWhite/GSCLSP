@@ -3,7 +3,7 @@ import {
 	SCRIPT_FILE_PATTERN,
 	fsPathToUri,
 	uriToFsPath,
-} from "@gsc-language-server/core";
+} from "@gsclsp/core";
 import { type FSWatcher, watch } from "chokidar";
 import {
 	type ClientCapabilities,

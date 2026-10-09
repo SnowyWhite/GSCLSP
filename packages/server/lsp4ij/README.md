@@ -3,18 +3,18 @@
 Language support for Call of Duty GSC (game script) in JetBrains IDEs (CLion, IntelliJ IDEA, ...)
 through [LSP4IJ](https://github.com/redhat-developer/lsp4ij).
 
-> The **GSC Language Server** JetBrains plugin does all of this without a template: it bundles the
+> The **GSCLSP** JetBrains plugin does all of this without a template: it bundles the
 > server, highlighting and a settings page. Use this template if you can't install the plugin.
 
 ## Server
 
-The template starts the server with `npx --yes gsc-language-server --stdio`, which requires
-[Node.js](https://nodejs.org/) 20.19 or newer. Templates from a GitHub release also contain an
-installer (**Installer** tab) that downloads the standalone server instead, which needs no Node.js.
-To use a local build instead, change the command on the **Server** tab:
+The template's **Installer** tab downloads the standalone server (no Node.js needed) from the
+[GitHub releases](https://github.com/SnowyWhite/GSCLSP/releases) and configures the command to run
+it. Until then the command is `gsclsp --stdio`, which works if the standalone executable
+is on the `PATH`. To use a local build instead, change the command on the **Server** tab:
 
-- `node path/to/gsc-language-server/dist/server.js --stdio`
-- `path/to/gsc-language-server.exe --stdio` (keep the `data` directory next to the executable)
+- `node path/to/GSCLSP/dist/server.js --stdio` (requires [Node.js](https://nodejs.org/) 20.19+)
+- `path/to/gsclsp.exe --stdio` (keep the `data` directory next to the executable)
 
 Pass `--data <dir>` to load engine data from a different directory.
 
@@ -26,7 +26,7 @@ so TextMate syntax highlighting keeps working.
 ## Syntax highlighting
 
 Add the TextMate bundle shipped with the server under
-**Settings | Editor | TextMate Bundles** (`dist/textmate` in the `gsc-language-server` package).
+**Settings | Editor | TextMate Bundles** (`dist/textmate` in the `gsclsp` package).
 
 ## Configuration
 

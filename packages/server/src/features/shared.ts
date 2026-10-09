@@ -6,7 +6,7 @@ import type {
 	ParamDef,
 	Stores,
 	VariableDef,
-} from "@gsc-language-server/core";
+} from "@gsclsp/core";
 import { type MarkupContent, MarkupKind } from "vscode-languageserver";
 
 /** Callable usages of a file and a lookup for the definition each one refers to. */
@@ -49,7 +49,6 @@ export const createUsage = (def: CallableDef) => {
 
 export const createDocumentation = (
 	def: CallableDef,
-	languageId: string,
 	features?: { concise?: boolean; example?: boolean },
 ) => {
 	const concise = features?.concise ?? false;
@@ -81,7 +80,7 @@ ${returns}`;
 		def.example && showExample
 			? `\
 ${concise ? "" : "*Example:*\n"}
-\`\`\`${languageId}
+\`\`\`gsc
 ${def.example.join("\n")}
 \`\`\``
 			: "";

@@ -1,11 +1,19 @@
 {
-	"name": "gsc-language-server-vscode",
+	"name": "gsclsp-vscode",
 	"version": "0.0.1",
 	"private": true,
-	"publisher": "gsc-language-server",
+	"publisher": "gsclsp",
 	"license": "MIT",
-	"displayName": "GSC Language Server",
-	"description": "Call of Duty GSC (game script, IW3 and IW4) language support through gsc-language-server.",
+	"displayName": "GSCLSP",
+	"description": "Call of Duty GSC (game script, IW3 and IW4) language support through gsclsp.",
+	"author": "Snowy White",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SnowyWhite/GSCLSP.git",
+		"directory": "packages/vscode"
+	},
+	"homepage": "https://github.com/SnowyWhite/GSCLSP#readme",
+	"bugs": "https://github.com/SnowyWhite/GSCLSP/issues",
 	"keywords": ["Game Script", "Call of Duty", "GSC", "CoD", "IW4x"],
 	"categories": ["Programming Languages", "Snippets"],
 	"engines": {
@@ -20,7 +28,7 @@
 		"@types/vscode": "^1.91.0",
 		"@vscode/vsce": "^4.0.0",
 		"esbuild": "^0.28.2",
-		"gsc-language-server": "*",
+		"gsclsp": "*",
 		"vscode-languageclient": "^10.1.2"
 	}
 }

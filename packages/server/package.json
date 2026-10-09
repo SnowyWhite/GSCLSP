@@ -1,8 +1,16 @@
 {
-	"name": "gsc-language-server",
+	"name": "gsclsp",
 	"version": "0.0.1",
 	"license": "MIT",
 	"description": "Language server for Call of Duty GSC (game script).",
+	"author": "Snowy White",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SnowyWhite/GSCLSP.git",
+		"directory": "packages/server"
+	},
+	"homepage": "https://github.com/SnowyWhite/GSCLSP#readme",
+	"bugs": "https://github.com/SnowyWhite/GSCLSP/issues",
 	"keywords": [
 		"Game Script",
 		"Call of Duty",
@@ -12,7 +20,7 @@
 		"language server"
 	],
 	"bin": {
-		"gsc-language-server": "dist/server.js"
+		"gsclsp": "dist/server.js"
 	},
 	"files": [
 		"dist"
@@ -28,7 +36,7 @@
 		"test": "npm run bundle && node --import tsx --test \"test/**/*.test.ts\""
 	},
 	"devDependencies": {
-		"@gsc-language-server/core": "*",
+		"@gsclsp/core": "*",
 		"chokidar": "^5.0.0",
 		"esbuild": "^0.28.2",
 		"postject": "^1.0.0-alpha.6",

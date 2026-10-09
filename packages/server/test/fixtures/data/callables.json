@@ -1,0 +1,21 @@
+{
+	"iPrintLn": [
+		{
+			"scopes": [{ "engine": "iw3", "featuresets": ["mp"] }],
+			"description": ["Write line to the screen."],
+			"params": [{ "name": "text", "types": ["string"] }],
+			"module": "Menu"
+		}
+	],
+	"setModel": [
+		{
+			"scopes": [{ "engine": "iw3", "featuresets": ["mp"] }],
+			"receiver": { "types": ["entity"] },
+			"params": [{ "name": "model" }],
+			"module": "Entity"
+		}
+	],
+	"oldThing": [
+		{ "scopes": [{ "engine": "iw3", "featuresets": ["mp"] }], "deprecated": true, "module": "Misc" }
+	]
+}

@@ -3,7 +3,7 @@ import {
 	SETTINGS_SECTION,
 	type Settings,
 	resolveSettings,
-} from "@gsc-language-server/core";
+} from "@gsclsp/core";
 import type { ClientCapabilities, Connection } from "vscode-languageserver";
 
 /** Accepts both `{ "GSC": { ... } }` and the bare section contents. */

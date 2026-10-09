@@ -54,8 +54,8 @@ export class Stores {
 	/**
 	 * Engine of a document, in order of precedence:
 	 * 1. the engine whose root directory contains the file (the innermost one)
-	 * 2. an engine-specific language ID (`gsc-iw3`) sent by clients with one language per engine.
-	 *    VS Code assigns one of these to every GSC file, so it can't take precedence over 1.
+	 * 2. an engine-specific language ID (`gsc-iw3`), which clients may send instead of `gsc`.
+	 *    Clients that use one language per engine assign it to every file, so it can't take precedence over 1.
 	 * 3. the `defaultEngine` setting
 	 */
 	resolveEngine(uri: string, languageId?: string): Engine {

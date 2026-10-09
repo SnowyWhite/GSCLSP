@@ -2,4 +2,4 @@ plugins {
 	id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "gsc-language-server-jetbrains"
+rootProject.name = "gsclsp-jetbrains"

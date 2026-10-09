@@ -1,12 +1,12 @@
 -- Language server configuration for Neovim 0.11+ (`vim.lsp.config`/`vim.lsp.enable`).
 -- Override fields with `vim.lsp.config('gsc_ls', { ... })`, e.g. `cmd` or `settings`.
--- `gsc-language-server` from npm, or the standalone executable of a GitHub release. `exepath` also
+-- `gsclsp` from npm, or the standalone executable of a GitHub release. `exepath` also
 -- finds npm's `.cmd` shim on Windows, which can't be spawned by its bare name.
-local executable = vim.fn.exepath('gsc-language-server')
+local executable = vim.fn.exepath('gsclsp')
 
 ---@type vim.lsp.Config
 return {
-	cmd = { executable ~= '' and executable or 'gsc-language-server', '--stdio' },
+	cmd = { executable ~= '' and executable or 'gsclsp', '--stdio' },
 	filetypes = { 'gsc' },
 	-- Script paths (maps\mp\_utility) are relative to the folder containing `maps`, so prefer it as the
 	-- root: without configured root directories, the server uses it as the default engine's.

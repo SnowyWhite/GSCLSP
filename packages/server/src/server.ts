@@ -1,12 +1,13 @@
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import {
+	SETTINGS_SECTION,
 	type Settings,
 	Stores,
 	loadEngines,
 	normalizeUri,
 	uriToFsPath,
-} from "@gsc-language-server/core";
+} from "@gsclsp/core";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import {
 	DidChangeConfigurationNotification,
@@ -111,7 +112,7 @@ connection.onInitialize(
 				inlayHintProvider: true,
 				workspace: { workspaceFolders: { supported: true, changeNotifications: true } },
 			},
-			serverInfo: { name: "gsc-language-server", version },
+			serverInfo: { name: "gsclsp", version },
 		};
 	},
 );
@@ -124,7 +125,7 @@ connection.onInitialized(async () => {
 	) {
 		// Not awaited: a client failing the registration must not keep requests waiting for settings.
 		connection.client
-			.register(DidChangeConfigurationNotification.type, { section: "GSC" })
+			.register(DidChangeConfigurationNotification.type, { section: SETTINGS_SECTION })
 			.catch((error) =>
 				connection.console.error(`Registering for configuration changes: ${error}`),
 			);

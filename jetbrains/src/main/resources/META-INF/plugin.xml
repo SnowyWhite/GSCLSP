@@ -1,7 +1,7 @@
 <idea-plugin>
-	<id>gsc-language-server</id>
-	<name>GSC Language Server</name>
-	<vendor>gsc-language-server</vendor>
+	<id>gsclsp</id>
+	<name>GSCLSP</name>
+	<vendor url="https://github.com/SnowyWhite/GSCLSP">Snowy White</vendor>
 	<description><![CDATA[
 	<p>Language support for Call of Duty GSC (game script, IW3 and IW4) through a language server:
 	code completion, hover documentation, signature help, go to definition, semantic highlighting,
@@ -9,6 +9,10 @@
 	<p>Configure it under <b>Settings | Languages &amp; Frameworks | GSC</b>. Without configured root
 	directories, the project folder is used.</p>
 	]]></description>
+	<change-notes><![CDATA[
+	<h3>0.0.1</h3>
+	<ul><li>Initial release.</li></ul>
+	]]></change-notes>
 
 	<depends>com.intellij.modules.platform</depends>
 	<depends>com.redhat.devtools.lsp4ij</depends>
@@ -16,8 +20,8 @@
 
 	<extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
 		<server id="gscLanguageServer"
-				name="GSC Language Server"
-				factoryClass="gsclanguageserver.GscLanguageServerFactory">
+				name="GSCLSP"
+				factoryClass="gsclsp.GscLanguageServerFactory">
 			<description><![CDATA[Language server for Call of Duty GSC (game script).]]></description>
 		</server>
 		<!-- File name patterns rather than a file type, so TextMate highlighting stays active: -->
@@ -27,10 +31,10 @@
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<textmate.bundleProvider implementation="gsclanguageserver.GscTextMateBundleProvider"/>
+		<textmate.bundleProvider implementation="gsclsp.GscTextMateBundleProvider"/>
 		<projectConfigurable parentId="language"
-							 instance="gsclanguageserver.GscConfigurable"
-							 id="gsclanguageserver.settings"
+							 instance="gsclsp.GscConfigurable"
+							 id="gsclsp.settings"
 							 displayName="GSC"/>
 	</extensions>
 </idea-plugin>

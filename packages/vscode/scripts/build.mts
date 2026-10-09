@@ -2,13 +2,13 @@ import { execFileSync } from "node:child_process";
 import { cp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
-import { SETTINGS_SECTION, createSettingsSchema, loadEngines } from "@gsc-language-server/core";
+import { SETTINGS_SECTION, createSettingsSchema, loadEngines } from "@gsclsp/core";
 import { build } from "esbuild";
 
 /**
  * Assembles the extension in dist/: the bundled client, the language server with its data, the
  * TextMate grammar and the manifest with settings generated from the server's settings schema.
- * `--package` also writes gsc-language-server-vscode-<version>.vsix.
+ * `--package` also writes gsclsp-vscode-<version>.vsix.
  * Requires a built server (`npm run build -w packages/server`).
  */
 
@@ -98,10 +98,9 @@ console.log("Built extension in dist/.");
 
 if (args.package) {
 	const vsce = join(repositoryDir, "node_modules", "@vscode", "vsce", "vsce");
-	const output = join(packageDir, `gsc-language-server-vscode-${manifest.version}.vsix`);
-	execFileSync(
-		process.execPath,
-		[vsce, "package", "--no-dependencies", "--allow-missing-repository", "--out", output],
-		{ cwd: distDir, stdio: "inherit" },
-	);
+	const output = join(packageDir, `gsclsp-vscode-${manifest.version}.vsix`);
+	execFileSync(process.execPath, [vsce, "package", "--no-dependencies", "--out", output], {
+		cwd: distDir,
+		stdio: "inherit",
+	});
 }
