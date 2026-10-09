@@ -1,9 +1,4 @@
-import {
-	type FileEventKind,
-	SCRIPT_FILE_PATTERN,
-	fsPathToUri,
-	uriToFsPath,
-} from "@gsclsp/core";
+import { type FileEventKind, SCRIPT_FILE_PATTERN, fsPathToUri, uriToFsPath } from "@gsclsp/core";
 import { type FSWatcher, watch } from "chokidar";
 import {
 	type ClientCapabilities,

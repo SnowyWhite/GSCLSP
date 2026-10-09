@@ -13,10 +13,7 @@ const distDir = join(packageDir, "dist");
 const serverPath = join(distDir, "server.js");
 const blobPath = join(distDir, "sea-prep.blob");
 const configPath = join(distDir, "sea-config.json");
-const executablePath = join(
-	distDir,
-	process.platform === "win32" ? "gsclsp.exe" : "gsclsp",
-);
+const executablePath = join(distDir, process.platform === "win32" ? "gsclsp.exe" : "gsclsp");
 
 await stat(serverPath).catch(() => {
 	throw new Error(`Missing ${serverPath}. Run "npm run build" first.`);
