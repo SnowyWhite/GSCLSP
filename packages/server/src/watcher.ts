@@ -65,8 +65,10 @@ export class RootDirectoriesWatcher {
 
 	/** Updates are serialized, so overlapping settings changes can't leak watchers. */
 	update(roots: string[]) {
-		this.pending = this.pending.then(() => this.apply(roots));
-		return this.pending;
+		const result = this.pending.then(() => this.apply(roots));
+		// A failed update must not block later ones; the caller still sees the error.
+		this.pending = result.catch(() => {});
+		return result;
 	}
 
 	private async apply(roots: string[]) {
