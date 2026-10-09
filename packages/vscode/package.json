@@ -1,0 +1,26 @@
+{
+	"name": "gsc-language-server-vscode",
+	"version": "0.0.1",
+	"private": true,
+	"publisher": "gsc-language-server",
+	"license": "MIT",
+	"displayName": "GSC Language Server",
+	"description": "Call of Duty GSC (game script, IW3 and IW4) language support through gsc-language-server.",
+	"keywords": ["Game Script", "Call of Duty", "GSC", "CoD", "IW4x"],
+	"categories": ["Programming Languages", "Snippets"],
+	"engines": {
+		"vscode": "^1.91.0"
+	},
+	"scripts": {
+		"build": "tsx scripts/build.mts",
+		"package": "tsx scripts/build.mts --package",
+		"typecheck": "tsc -p ."
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.91.0",
+		"@vscode/vsce": "^4.0.0",
+		"esbuild": "^0.28.2",
+		"gsc-language-server": "*",
+		"vscode-languageclient": "^10.1.2"
+	}
+}

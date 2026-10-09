@@ -3,6 +3,7 @@
 #   downloaded by the LSP4IJ template installer and by the JetBrains plugin when Node.js is missing
 # - gsc-language-server-lsp4ij-template.zip, gsc-language-server-textmate.zip
 # - gsc-language-server-jetbrains-<version>.zip: the JetBrains plugin
+# - gsc-language-server-vscode-<version>.vsix: the VS Code extension
 name: Release
 
 on:
@@ -65,6 +66,10 @@ jobs:
         run: |
           ./gradlew buildPlugin "-PpluginVersion=${GITHUB_REF_NAME#v}"
           cp build/distributions/*.zip ../gsc-language-server-jetbrains-${GITHUB_REF_NAME#v}.zip
+      - name: Package VS Code extension
+        run: |
+          npm run package -w packages/vscode
+          cp packages/vscode/*.vsix .
       - uses: actions/upload-artifact@v4
         with:
           name: jetbrains
@@ -72,6 +77,7 @@ jobs:
             gsc-language-server-lsp4ij-template.zip
             gsc-language-server-textmate.zip
             gsc-language-server-jetbrains-*.zip
+            gsc-language-server-vscode-*.vsix
 
   release:
     needs: [standalone, jetbrains]

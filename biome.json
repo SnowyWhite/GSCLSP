@@ -1,7 +1,14 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"ignore": ["./package.json", "./package-lock.json"]
+		"ignore": [
+			"./package.json",
+			"./package-lock.json",
+			"./jetbrains/.intellijPlatform",
+			"./jetbrains/.gradle",
+			"./jetbrains/build",
+			"./jetbrains/.kotlin"
+		]
 	},
 	"vcs": {
 		"enabled": true,

@@ -122,7 +122,12 @@ connection.onInitialized(async () => {
 		configuration.supportsPull &&
 		capabilities.workspace?.didChangeConfiguration?.dynamicRegistration
 	) {
-		await connection.client.register(DidChangeConfigurationNotification.type, { section: "GSC" });
+		// Not awaited: a client failing the registration must not keep requests waiting for settings.
+		connection.client
+			.register(DidChangeConfigurationNotification.type, { section: "GSC" })
+			.catch((error) =>
+				connection.console.error(`Registering for configuration changes: ${error}`),
+			);
 	}
 	if (capabilities.workspace?.workspaceFolders) {
 		connection.workspace.onDidChangeWorkspaceFolders(async ({ added, removed }) => {

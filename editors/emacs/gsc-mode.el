@@ -1,0 +1,105 @@
+;;; gsc-mode.el --- Call of Duty GSC support with gsc-language-server -*- lexical-binding: t; -*-
+
+;; Package-Requires: ((emacs "29.1"))
+;; Keywords: languages
+;; SPDX-License-Identifier: MIT
+
+;;; Commentary:
+
+;; Major mode for Call of Duty GSC (game script) files (*.gsc, *.csc) with basic highlighting and
+;; indentation, plus Eglot (built into Emacs 29+) integration with gsc-language-server for
+;; completion, hover documentation, signature help, go to definition, semantic highlighting and
+;; inlay hints.
+;;
+;; Settings (the server's `GSC' section) go into `eglot-workspace-configuration', e.g.:
+;;
+;;   (setq-default eglot-workspace-configuration
+;;                 '(:GSC (:defaultEngine "iw4"
+;;                         :rootDirectories (:iw4 ["D:/iw4x/raw"]))))
+
+;;; Code:
+
+(require 'project)
+
+(defvar eglot-server-programs)
+
+(defgroup gsc nil
+  "Call of Duty GSC (game script)."
+  :group 'languages)
+
+(defcustom gsc-language-server-command '("gsc-language-server" "--stdio")
+  "Command starting gsc-language-server.
+From npm, or the standalone executable of a GitHub release."
+  :type '(repeat string))
+
+(defcustom gsc-indent-offset 4
+  "Indentation of a nesting level."
+  :type 'integer)
+
+(defconst gsc-keywords
+  '("break" "breakpoint" "call" "case" "childthread" "continue" "default" "else" "endon" "for"
+    "foreach" "if" "in" "notify" "prof_begin" "prof_end" "return" "switch" "thisthread" "thread"
+    "wait" "waittill" "waittillframeend" "waittillmatch" "while"))
+
+(defconst gsc-font-lock-keywords
+  `((,(regexp-opt gsc-keywords 'symbols) . font-lock-keyword-face)
+    (,(regexp-opt '("true" "false" "undefined") 'symbols) . font-lock-constant-face)
+    (,(regexp-opt '("self" "level" "game" "anim") 'symbols) . font-lock-builtin-face)
+    ("#\\(?:include\\|using_animtree\\|animtree\\)\\_>" . font-lock-preprocessor-face)
+    ("^\\([A-Za-z_][A-Za-z0-9_]*\\)\\s-*(" 1 font-lock-function-name-face)
+    ("\\_<\\([A-Za-z_][A-Za-z0-9_]*\\)\\s-*(" 1 font-lock-function-call-face)))
+
+(defvar gsc-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    ;; C-style comments: // line and /* block */.
+    (modify-syntax-entry ?/ ". 124" table)
+    (modify-syntax-entry ?* ". 23b" table)
+    (modify-syntax-entry ?\n ">" table)
+    (modify-syntax-entry ?\" "\"" table)
+    (modify-syntax-entry ?\\ "\\" table)
+    (modify-syntax-entry ?_ "_" table)
+    (modify-syntax-entry ?# "." table)
+    table)
+  "Syntax table for `gsc-mode'.")
+
+(defun gsc-indent-line ()
+  "Indent the current line by its bracket nesting depth."
+  (let* ((depth (save-excursion (car (syntax-ppss (line-beginning-position)))))
+         (closing (save-excursion (back-to-indentation) (looking-at-p "[]})]")))
+         (column (* gsc-indent-offset (max 0 (if closing (1- depth) depth)))))
+    (if (<= (current-column) (current-indentation))
+        (indent-line-to column)
+      (save-excursion (indent-line-to column)))))
+
+(defun gsc--project-find (dir)
+  "Find the GSC project of DIR: the nearest folder containing `maps'.
+Script paths (maps\\mp\\_utility) are relative to it, and without configured root
+directories the server uses the project folder as the default engine's."
+  (when-let* ((root (locate-dominating-file dir "maps")))
+    (cons 'transient root)))
+
+;;;###autoload
+(define-derived-mode gsc-mode prog-mode "GSC"
+  "Major mode for Call of Duty GSC (game script)."
+  :syntax-table gsc-mode-syntax-table
+  (setq-local font-lock-defaults '(gsc-font-lock-keywords))
+  (setq-local comment-start "// ")
+  (setq-local comment-end "")
+  (setq-local comment-start-skip "\\(?://+\\|/\\*+\\)\\s-*")
+  (setq-local indent-line-function #'gsc-indent-line)
+  (setq-local electric-indent-chars (append "{}()" electric-indent-chars))
+  (add-hook 'project-find-functions #'gsc--project-find nil t))
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.[gc]sc\\'" . gsc-mode))
+
+(defun gsc--eglot-contact (_interactive)
+  "Eglot server contact for `gsc-mode'."
+  gsc-language-server-command)
+
+;;;###autoload
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '(gsc-mode . gsc--eglot-contact)))
+
+(provide 'gsc-mode)
+;;; gsc-mode.el ends here

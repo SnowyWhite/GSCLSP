@@ -3,10 +3,14 @@
 	"private": true,
 	"license": "MIT",
 	"type": "module",
-	"workspaces": ["packages/core", "packages/server"],
+	"workspaces": [
+		"packages/core",
+		"packages/server",
+		"packages/vscode"
+	],
 	"scripts": {
 		"build:data": "tsx build/ --api https://muhlex.github.io/gsc-doc/ --engine iw3 --engine iw4",
-		"build": "npm run build:data && npm run build -w packages/server",
+		"build": "npm run build:data && npm run build -w packages/server && npm run build -w packages/vscode",
 		"typecheck": "tsc -p build && npm run typecheck --workspaces",
 		"test": "npm test --workspaces --if-present",
 		"check": "biome check",

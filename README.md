@@ -33,25 +33,43 @@ standalone server from the GitHub release of its version.
 Without the plugin, use the LSP4IJ template instead, see
 [packages/server/lsp4ij/README.md](./packages/server/lsp4ij/README.md).
 
+### VS Code
+
+Install `gsc-language-server-vscode-<version>.vsix` from a GitHub release (**Extensions | ⋯ |
+Install from VSIX...**). The server is bundled. See [packages/vscode/README.md](./packages/vscode/README.md).
+Don't enable it together with Muhlex/vscode-gsc.
+
+### Neovim and Emacs
+
+See [editors/neovim](./editors/neovim/README.md) (Neovim 0.11+) and
+[editors/emacs](./editors/emacs/README.md) (Emacs 29+, Eglot). Both start `gsc-language-server` from
+the `PATH`. Get it with one of:
+
+- the standalone executable from a GitHub release (`gsc-language-server-<os>-<arch>.zip`, keep
+  `data/` next to it, no Node.js needed): add its folder to the `PATH`;
+- Node.js 20.19+: `npm run build` in this repository, then `npm install -g ./packages/server`.
+
 ### Other editors
 
-The server works with any LSP client, see [packages/server/README.md](./packages/server/README.md)
-for options and configuration. There is no VS Code extension in this repository; any VS Code LSP
-client extension can start the server.
+The server works with any LSP client (`gsc-language-server --stdio`), see
+[packages/server/README.md](./packages/server/README.md) for options and configuration.
 
 ## Layout
 
 - `packages/core`: Editor-independent parsers, models and stores.
 - `packages/server`: The language server, bundled into `dist/server.js`. The build also writes an
   LSP4IJ template (`dist/lsp4ij`) and a TextMate bundle for syntax highlighting (`dist/textmate`).
+- `packages/vscode`: The VS Code extension, a language client bundling the server.
 - `jetbrains/`: The JetBrains plugin (Gradle, Kotlin), built on LSP4IJ.
+- `editors/neovim`, `editors/emacs`: Neovim plugin and Emacs major mode with Eglot setup.
 - `build/`: Fetches the engine documentation from gsc-doc into `data/`.
 
 ## Development
 
 ```sh
 npm install
-npm run build        # data/ and packages/server/dist
+npm run build        # data/, packages/server/dist and packages/vscode/dist
+npm run package -w packages/vscode     # VS Code .vsix
 npm test             # parser unit tests and a language server integration test over stdio
 npm run typecheck
 npm run build:sea -w packages/server   # optional standalone executable (no Node.js needed)
@@ -67,7 +85,7 @@ cd jetbrains
 
 Pushing a `v<version>` tag runs `.github/workflows/release.yml`, which publishes the standalone
 servers (`gsc-language-server-<os>-<arch>.zip`), the LSP4IJ template (with an installer for the
-standalone server), the TextMate bundle and the JetBrains plugin. Keep `pluginVersion` in
+standalone server), the TextMate bundle and the JetBrains plugin. Keep the `version` of `packages/vscode/package.json`, `pluginVersion` in
 `jetbrains/gradle.properties` and the tag in sync: the plugin downloads the standalone server of
 its own version.
 
