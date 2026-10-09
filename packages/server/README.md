@@ -1,5 +1,9 @@
 # gsclsp
 
+IW4/IW4x `.menu` files are also supported: completion, hover, definition navigation,
+highlighting, outlines, folding, RGBA colors and structural diagnostics. See
+[menu support and limitations](../../doc/menu.md).
+
 Language server for Call of Duty GSC (game script): completion, hover, signature help, go to
 definition, semantic tokens, inlay hints and document colors.
 

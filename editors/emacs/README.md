@@ -1,5 +1,9 @@
 # Emacs
 
+IW4/IW4x `.menu` files are also supported: completion, hover, definition navigation,
+highlighting, outlines, folding, RGBA colors and structural diagnostics. See
+[menu support and limitations](../../doc/menu.md).
+
 Requires Emacs 29.1+ (for the built-in Eglot) and `gsclsp` on the `PATH` (or
 `exec-path`, see the main README).
 

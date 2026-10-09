@@ -10,7 +10,16 @@ import type { DocumentContext, Server } from "../context";
 import { getCallableContext } from "./shared";
 
 export const semanticTokensLegend: SemanticTokensLegend = {
-	tokenTypes: ["function", "method", "parameter"],
+	tokenTypes: [
+		"function",
+		"method",
+		"parameter",
+		"keyword",
+		"string",
+		"number",
+		"comment",
+		"macro",
+	],
 	tokenModifiers: ["definition", "defaultLibrary", "deprecated"],
 };
 
