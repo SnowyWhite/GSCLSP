@@ -1,0 +1,1334 @@
+{
+	"database": {
+		"path": "idb/iw4mp_x64.i64",
+		"input": "iw4mp-x64.exe",
+		"bitness": 64,
+		"imagebase": "0x140000000",
+		"sha256": "d52613308e66cde38390ec07661478684906384943da62efdaee82e7692fcda4",
+		"analysis_date": "2026-10-09"
+	},
+	"commands": [
+		{
+			"index": 0,
+			"entry": "0x1403c7b50",
+			"name": "fadein",
+			"handler": "0x14025e8e0",
+			"handler_name": "Script_FadeIn"
+		},
+		{
+			"index": 1,
+			"entry": "0x1403c7b60",
+			"name": "fadeout",
+			"handler": "0x14025e9c0",
+			"handler_name": "Script_FadeOut"
+		},
+		{
+			"index": 2,
+			"entry": "0x1403c7b70",
+			"name": "show",
+			"handler": "0x14025e700",
+			"handler_name": "Script_Show"
+		},
+		{
+			"index": 3,
+			"entry": "0x1403c7b80",
+			"name": "hide",
+			"handler": "0x14025e7b0",
+			"handler_name": "Script_Hide"
+		},
+		{
+			"index": 4,
+			"entry": "0x1403c7b90",
+			"name": "showMenu",
+			"handler": "0x14025eaa0",
+			"handler_name": "Script_ShowMenu"
+		},
+		{
+			"index": 5,
+			"entry": "0x1403c7ba0",
+			"name": "hideMenu",
+			"handler": "0x14025eb50",
+			"handler_name": "Script_HideMenu"
+		},
+		{
+			"index": 6,
+			"entry": "0x1403c7bb0",
+			"name": "setcolor",
+			"handler": "0x14025e3a0",
+			"handler_name": "Script_SetColor"
+		},
+		{
+			"index": 7,
+			"entry": "0x1403c7bc0",
+			"name": "open",
+			"handler": "0x14025ec00",
+			"handler_name": "Script_Open"
+		},
+		{
+			"index": 8,
+			"entry": "0x1403c7bd0",
+			"name": "close",
+			"handler": "0x14025f4d0",
+			"handler_name": "Script_Close"
+		},
+		{
+			"index": 9,
+			"entry": "0x1403c7be0",
+			"name": "escape",
+			"handler": "0x14025f5b0",
+			"handler_name": "Script_Escape"
+		},
+		{
+			"index": 10,
+			"entry": "0x1403c7bf0",
+			"name": "closeForAllPlayers",
+			"handler": "0x14025f690",
+			"handler_name": "Script_CloseForAllPlayers"
+		},
+		{
+			"index": 11,
+			"entry": "0x1403c7c00",
+			"name": "ingameopen",
+			"handler": "0x14025f760",
+			"handler_name": "Script_InGameOpen"
+		},
+		{
+			"index": 12,
+			"entry": "0x1403c7c10",
+			"name": "ingameclose",
+			"handler": "0x14025f810",
+			"handler_name": "Script_InGameClose"
+		},
+		{
+			"index": 13,
+			"entry": "0x1403c7c20",
+			"name": "setbackground",
+			"handler": "0x14025e4a0",
+			"handler_name": "Script_SetBackground"
+		},
+		{
+			"index": 14,
+			"entry": "0x1403c7c30",
+			"name": "setitemcolor",
+			"handler": "0x14025e4f0",
+			"handler_name": "Script_SetItemColor"
+		},
+		{
+			"index": 15,
+			"entry": "0x1403c7c40",
+			"name": "focusfirst",
+			"handler": "0x14025f8c0",
+			"handler_name": "Script_FocusFirstInMenu"
+		},
+		{
+			"index": 16,
+			"entry": "0x1403c7c50",
+			"name": "setfocus",
+			"handler": "0x14025fa00",
+			"handler_name": "Script_SetFocus"
+		},
+		{
+			"index": 17,
+			"entry": "0x1403c7c60",
+			"name": "setfocusbydvar",
+			"handler": "0x14025fb00",
+			"handler_name": "Script_SetFocusByDvar"
+		},
+		{
+			"index": 18,
+			"entry": "0x1403c7c70",
+			"name": "setdvar",
+			"handler": "0x14025fc20",
+			"handler_name": "Script_SetDvar"
+		},
+		{
+			"index": 19,
+			"entry": "0x1403c7c80",
+			"name": "exec",
+			"handler": "0x14025fcd0",
+			"handler_name": "Script_Exec"
+		},
+		{
+			"index": 20,
+			"entry": "0x1403c7c90",
+			"name": "execnow",
+			"handler": "0x14025fd40",
+			"handler_name": "Script_ExecNow"
+		},
+		{
+			"index": 21,
+			"entry": "0x1403c7ca0",
+			"name": "execOnDvarStringValue",
+			"handler": "0x14025fe20",
+			"handler_name": "Script_ExecOnDvarStringValue"
+		},
+		{
+			"index": 22,
+			"entry": "0x1403c7cb0",
+			"name": "execOnDvarIntValue",
+			"handler": "0x14025fe50",
+			"handler_name": "Script_ExecOnDvarIntValue"
+		},
+		{
+			"index": 23,
+			"entry": "0x1403c7cc0",
+			"name": "execOnDvarFloatValue",
+			"handler": "0x14025fe80",
+			"handler_name": "Script_ExecOnDvarFloatValue"
+		},
+		{
+			"index": 24,
+			"entry": "0x1403c7cd0",
+			"name": "execNowOnDvarStringValue",
+			"handler": "0x14025feb0",
+			"handler_name": "Script_ExecNowOnDvarStringValue"
+		},
+		{
+			"index": 25,
+			"entry": "0x1403c7ce0",
+			"name": "execNowOnDvarIntValue",
+			"handler": "0x14025fee0",
+			"handler_name": "Script_ExecNowOnDvarIntValue"
+		},
+		{
+			"index": 26,
+			"entry": "0x1403c7cf0",
+			"name": "execNowOnDvarFloatValue",
+			"handler": "0x14025ff10",
+			"handler_name": "Script_ExecNowOnDvarFloatValue"
+		},
+		{
+			"index": 27,
+			"entry": "0x1403c7d00",
+			"name": "play",
+			"handler": "0x140260420",
+			"handler_name": "Script_Play"
+		},
+		{
+			"index": 28,
+			"entry": "0x1403c7d10",
+			"name": "scriptmenuresponse",
+			"handler": "0x1402607b0",
+			"handler_name": "Script_ScriptMenuResponse"
+		},
+		{
+			"index": 29,
+			"entry": "0x1403c7d20",
+			"name": "scriptMenuRespondOnDvarStringValue",
+			"handler": "0x14025ff40",
+			"handler_name": "Script_RespondOnDvarStringValue"
+		},
+		{
+			"index": 30,
+			"entry": "0x1403c7d30",
+			"name": "scriptMenuRespondOnDvarIntValue",
+			"handler": "0x14025ff50",
+			"handler_name": "Script_RespondOnDvarIntValue"
+		},
+		{
+			"index": 31,
+			"entry": "0x1403c7d40",
+			"name": "scriptMenuRespondOnDvarFloatValue",
+			"handler": "0x14025ff60",
+			"handler_name": "Script_RespondOnDvarFloatValue"
+		},
+		{
+			"index": 32,
+			"entry": "0x1403c7d50",
+			"name": "setPlayerData",
+			"handler": "0x14025ff70",
+			"handler_name": "Script_SetPlayerData"
+		},
+		{
+			"index": 33,
+			"entry": "0x1403c7d60",
+			"name": "setPlayerDataSplitScreen",
+			"handler": "0x14007cc50",
+			"handler_name": "Folded_EmptyFunction"
+		},
+		{
+			"index": 34,
+			"entry": "0x1403c7d70",
+			"name": "updateMail",
+			"handler": "0x14025fff0",
+			"handler_name": "Script_UpdateMail"
+		},
+		{
+			"index": 35,
+			"entry": "0x1403c7d80",
+			"name": "openMail",
+			"handler": "0x140260000",
+			"handler_name": "Script_OpenMail"
+		},
+		{
+			"index": 36,
+			"entry": "0x1403c7d90",
+			"name": "deleteMail",
+			"handler": "0x140260000",
+			"handler_name": "Script_OpenMail"
+		},
+		{
+			"index": 37,
+			"entry": "0x1403c7da0",
+			"name": "doMailLottery",
+			"handler": "0x140260010",
+			"handler_name": "Script_DoMailLottery"
+		},
+		{
+			"index": 38,
+			"entry": "0x1403c7db0",
+			"name": "resetStatsConfirm",
+			"handler": "0x140260020",
+			"handler_name": "Script_ResetStatsConfirm"
+		},
+		{
+			"index": 39,
+			"entry": "0x1403c7dc0",
+			"name": "resetStatsCancel",
+			"handler": "0x140260030",
+			"handler_name": "Script_ResetStatsCancel"
+		},
+		{
+			"index": 40,
+			"entry": "0x1403c7dd0",
+			"name": "setGameMode",
+			"handler": "0x14025fc80",
+			"handler_name": "Script_SetGameMode"
+		},
+		{
+			"index": 41,
+			"entry": "0x1403c7de0",
+			"name": "setLocalVarBool",
+			"handler": "0x140260040",
+			"handler_name": "Script_SetLocalVarBool"
+		},
+		{
+			"index": 42,
+			"entry": "0x1403c7df0",
+			"name": "setLocalVarInt",
+			"handler": "0x1402600d0",
+			"handler_name": "Script_SetLocalVarInt"
+		},
+		{
+			"index": 43,
+			"entry": "0x1403c7e00",
+			"name": "setLocalVarFloat",
+			"handler": "0x140260160",
+			"handler_name": "Script_SetLocalVarFloat"
+		},
+		{
+			"index": 44,
+			"entry": "0x1403c7e10",
+			"name": "setLocalVarString",
+			"handler": "0x1402601f0",
+			"handler_name": "Script_SetLocalVarString"
+		},
+		{
+			"index": 45,
+			"entry": "0x1403c7e20",
+			"name": "feederTop",
+			"handler": "0x140260280",
+			"handler_name": "Script_FeederTop"
+		},
+		{
+			"index": 46,
+			"entry": "0x1403c7e30",
+			"name": "feederBottom",
+			"handler": "0x1402602f0",
+			"handler_name": "Script_FeederBottom"
+		},
+		{
+			"index": 47,
+			"entry": "0x1403c7e40",
+			"name": "showGamerCard",
+			"handler": "0x14007cc50",
+			"handler_name": "Folded_EmptyFunction"
+		},
+		{
+			"index": 48,
+			"entry": "0x1403c7e50",
+			"name": "openforgametype",
+			"handler": "0x14025ecb0",
+			"handler_name": "Script_OpenForGameType"
+		},
+		{
+			"index": 49,
+			"entry": "0x1403c7e60",
+			"name": "closeforgametype",
+			"handler": "0x14025ed30",
+			"handler_name": "Script_CloseForGameType"
+		},
+		{
+			"index": 50,
+			"entry": "0x1403c7e70",
+			"name": "statclearperknew",
+			"handler": "0x14025f2c0",
+			"handler_name": "Script_StatClearPerkNew"
+		},
+		{
+			"index": 51,
+			"entry": "0x1403c7e80",
+			"name": "statsetusingtable",
+			"handler": "0x14025edb0",
+			"handler_name": "Script_StatSetUsingStatsTable"
+		},
+		{
+			"index": 52,
+			"entry": "0x1403c7e90",
+			"name": "statclearbitmask",
+			"handler": "0x14025f470",
+			"handler_name": "Script_StatClearBitMask"
+		},
+		{
+			"index": 53,
+			"entry": "0x1403c7ea0",
+			"name": "kickPlayer",
+			"handler": "0x140260470",
+			"handler_name": "Script_KickPlayer"
+		},
+		{
+			"index": 54,
+			"entry": "0x1403c7eb0",
+			"name": "getKickPlayerQuestion",
+			"handler": "0x140260500",
+			"handler_name": "Script_GetKickPlayerQuestionString"
+		},
+		{
+			"index": 55,
+			"entry": "0x1403c7ec0",
+			"name": "partyUpdateMissingMapPackDvar",
+			"handler": "0x140260630",
+			"handler_name": "Script_PartyUpdateMissingMapPackDvar"
+		},
+		{
+			"index": 56,
+			"entry": "0x1403c7ed0",
+			"name": "togglePlayerMute",
+			"handler": "0x140260640",
+			"handler_name": "Script_TogglePlayerMute"
+		},
+		{
+			"index": 57,
+			"entry": "0x1403c7ee0",
+			"name": "resolveError",
+			"handler": "0x140260750",
+			"handler_name": "Script_ResolveError"
+		},
+		{
+			"index": 58,
+			"entry": "0x1403c7ef0",
+			"name": "lerp",
+			"handler": "0x1402607a0",
+			"handler_name": "Script_HandleTransition"
+		}
+	],
+	"load_menu_callers": [
+		["0x1400d2dc8", "CG_Init"],
+		["0x14026de7e", "Load_ScriptMenu"],
+		["0x1402716cd", "UI_Init"],
+		["0x140271700", "UI_Init"],
+		["0x140271722", "UI_Init"],
+		["0x140271c34", "UI_LoadIngameMenus"]
+	],
+	"item_event_callers": [
+		["0x14025e886", "Script_Hide"],
+		["0x140261171", "Item_HandleEvent"],
+		["0x140261198", "Item_HandleEvent"],
+		["0x140261f16", "Item_ListBox_HandleKey"],
+		["0x14026425c", "Item_Paint"],
+		["0x140264d8b", "Item_SetFocus"],
+		["0x140265af3", "Item_TextField_HandleKey"],
+		["0x140266f98", "Menu_ClearFocus"],
+		["0x1402676e1", "Menu_HandleKey"],
+		["0x140267a7b", "Menu_HandleMouseMove"],
+		["0x140267aa5", "Menu_HandleMouseMove"],
+		["0x140267acd", "Menu_HandleMouseMove"],
+		["0x140267af5", "Menu_HandleMouseMove"],
+		["0x140267b93", "Menu_HandleMouseMove"],
+		["0x140267bb5", "Menu_HandleMouseMove"],
+		["0x140268c34", "Menu_SetNextCursorItem"],
+		["0x140268cf6", "Menu_SetNextCursorItem"],
+		["0x140268fc5", "Menu_SetPrevCursorItem"],
+		["0x140269087", "Menu_SetPrevCursorItem"],
+		["0x140269200", "Menus_CloseAll"],
+		["0x14026940c", "Menus_CloseRequest"],
+		["0x1402694c0", "Menus_Escape"],
+		["0x140269628", "Menus_ForceClose"],
+		["0x140269768", "Menus_ForceClose"],
+		["0x140269838", "sub_1402697F0"],
+		["0x140269d01", "Menus_Open"],
+		["0x140269e47", "Menus_Open"],
+		["0x140269ee3", "Menus_Open"],
+		["0x14026a04d", "Menus_RunOnOpenScript"],
+		["0x14026b56c", "Scroll_Slider_ThumbFunc"]
+	],
+	"operators": [
+		{
+			"opcode": 0,
+			"name": "NOOP"
+		},
+		{
+			"opcode": 1,
+			"name": ")"
+		},
+		{
+			"opcode": 2,
+			"name": "*"
+		},
+		{
+			"opcode": 3,
+			"name": "/"
+		},
+		{
+			"opcode": 4,
+			"name": "%"
+		},
+		{
+			"opcode": 5,
+			"name": "+"
+		},
+		{
+			"opcode": 6,
+			"name": "-"
+		},
+		{
+			"opcode": 7,
+			"name": "!"
+		},
+		{
+			"opcode": 8,
+			"name": "<"
+		},
+		{
+			"opcode": 9,
+			"name": "<="
+		},
+		{
+			"opcode": 10,
+			"name": ">"
+		},
+		{
+			"opcode": 11,
+			"name": ">="
+		},
+		{
+			"opcode": 12,
+			"name": "=="
+		},
+		{
+			"opcode": 13,
+			"name": "!="
+		},
+		{
+			"opcode": 14,
+			"name": "&&"
+		},
+		{
+			"opcode": 15,
+			"name": "||"
+		},
+		{
+			"opcode": 16,
+			"name": "("
+		},
+		{
+			"opcode": 17,
+			"name": ","
+		},
+		{
+			"opcode": 18,
+			"name": "&"
+		},
+		{
+			"opcode": 19,
+			"name": "|"
+		},
+		{
+			"opcode": 20,
+			"name": "~"
+		},
+		{
+			"opcode": 21,
+			"name": "<<"
+		},
+		{
+			"opcode": 22,
+			"name": ">>"
+		},
+		{
+			"opcode": 23,
+			"name": "dvarint(static)"
+		},
+		{
+			"opcode": 24,
+			"name": "dvarbool(static)"
+		},
+		{
+			"opcode": 25,
+			"name": "dvarfloat(static)"
+		},
+		{
+			"opcode": 26,
+			"name": "dvarstring(static)"
+		},
+		{
+			"opcode": 27,
+			"name": "int"
+		},
+		{
+			"opcode": 28,
+			"name": "string"
+		},
+		{
+			"opcode": 29,
+			"name": "float"
+		},
+		{
+			"opcode": 30,
+			"name": "sin"
+		},
+		{
+			"opcode": 31,
+			"name": "cos"
+		},
+		{
+			"opcode": 32,
+			"name": "min"
+		},
+		{
+			"opcode": 33,
+			"name": "max"
+		},
+		{
+			"opcode": 34,
+			"name": "milliseconds"
+		},
+		{
+			"opcode": 35,
+			"name": "dvarint"
+		},
+		{
+			"opcode": 36,
+			"name": "dvarbool"
+		},
+		{
+			"opcode": 37,
+			"name": "dvarfloat"
+		},
+		{
+			"opcode": 38,
+			"name": "dvarstring"
+		},
+		{
+			"opcode": 39,
+			"name": "stat"
+		},
+		{
+			"opcode": 40,
+			"name": "ui_active"
+		},
+		{
+			"opcode": 41,
+			"name": "flashbanged"
+		},
+		{
+			"opcode": 42,
+			"name": "usingvehicle"
+		},
+		{
+			"opcode": 43,
+			"name": "missilecam"
+		},
+		{
+			"opcode": 44,
+			"name": "scoped"
+		},
+		{
+			"opcode": 45,
+			"name": "scopedthermal"
+		},
+		{
+			"opcode": 46,
+			"name": "scoreboard_visible"
+		},
+		{
+			"opcode": 47,
+			"name": "inkillcam"
+		},
+		{
+			"opcode": 48,
+			"name": "inkillcamnpc"
+		},
+		{
+			"opcode": 49,
+			"name": "player"
+		},
+		{
+			"opcode": 50,
+			"name": "getperk"
+		},
+		{
+			"opcode": 51,
+			"name": "selecting_location"
+		},
+		{
+			"opcode": 52,
+			"name": "selecting_direction"
+		},
+		{
+			"opcode": 53,
+			"name": "team"
+		},
+		{
+			"opcode": 54,
+			"name": "otherteam"
+		},
+		{
+			"opcode": 55,
+			"name": "marinesfield"
+		},
+		{
+			"opcode": 56,
+			"name": "opforfield"
+		},
+		{
+			"opcode": 57,
+			"name": "menuisopen"
+		},
+		{
+			"opcode": 58,
+			"name": "writingdata"
+		},
+		{
+			"opcode": 59,
+			"name": "inlobby"
+		},
+		{
+			"opcode": 60,
+			"name": "inprivateparty"
+		},
+		{
+			"opcode": 61,
+			"name": "privatepartyhost"
+		},
+		{
+			"opcode": 62,
+			"name": "privatepartyhostinlobby"
+		},
+		{
+			"opcode": 63,
+			"name": "aloneinparty"
+		},
+		{
+			"opcode": 64,
+			"name": "adsjavelin"
+		},
+		{
+			"opcode": 65,
+			"name": "weaplockblink"
+		},
+		{
+			"opcode": 66,
+			"name": "weapattacktop"
+		},
+		{
+			"opcode": 67,
+			"name": "weapattackdirect"
+		},
+		{
+			"opcode": 68,
+			"name": "weaplocking"
+		},
+		{
+			"opcode": 69,
+			"name": "weaplocked"
+		},
+		{
+			"opcode": 70,
+			"name": "weaplocktooclose"
+		},
+		{
+			"opcode": 71,
+			"name": "weaplockscreenposx"
+		},
+		{
+			"opcode": 72,
+			"name": "weaplockscreenposy"
+		},
+		{
+			"opcode": 73,
+			"name": "secondsastime"
+		},
+		{
+			"opcode": 74,
+			"name": "tablelookup"
+		},
+		{
+			"opcode": 75,
+			"name": "tablelookupbyrow"
+		},
+		{
+			"opcode": 76,
+			"name": "tablegetrownum"
+		},
+		{
+			"opcode": 77,
+			"name": "locstring"
+		},
+		{
+			"opcode": 78,
+			"name": "localvarint"
+		},
+		{
+			"opcode": 79,
+			"name": "localvarbool"
+		},
+		{
+			"opcode": 80,
+			"name": "localvarfloat"
+		},
+		{
+			"opcode": 81,
+			"name": "localvarstring"
+		},
+		{
+			"opcode": 82,
+			"name": "timeleft"
+		},
+		{
+			"opcode": 83,
+			"name": "secondsascountdown"
+		},
+		{
+			"opcode": 84,
+			"name": "gamemsgwndactive"
+		},
+		{
+			"opcode": 85,
+			"name": "gametypename"
+		},
+		{
+			"opcode": 86,
+			"name": "gametype"
+		},
+		{
+			"opcode": 87,
+			"name": "gametypedescription"
+		},
+		{
+			"opcode": 88,
+			"name": "scoreatrank"
+		},
+		{
+			"opcode": 89,
+			"name": "friendsonline"
+		},
+		{
+			"opcode": 90,
+			"name": "spectatingclient"
+		},
+		{
+			"opcode": 91,
+			"name": "spectatingfree"
+		},
+		{
+			"opcode": 92,
+			"name": "statrangeanybitsset"
+		},
+		{
+			"opcode": 93,
+			"name": "keybinding"
+		},
+		{
+			"opcode": 94,
+			"name": "actionslotusable"
+		},
+		{
+			"opcode": 95,
+			"name": "hudfade"
+		},
+		{
+			"opcode": 96,
+			"name": "maxrecommendedplayers"
+		},
+		{
+			"opcode": 97,
+			"name": "acceptinginvite"
+		},
+		{
+			"opcode": 98,
+			"name": "isintermission"
+		},
+		{
+			"opcode": 99,
+			"name": "gamehost"
+		},
+		{
+			"opcode": 100,
+			"name": "partyismissingmappack"
+		},
+		{
+			"opcode": 101,
+			"name": "partymissingmappackerror"
+		},
+		{
+			"opcode": 102,
+			"name": "anynewmappacks"
+		},
+		{
+			"opcode": 103,
+			"name": "amiselected"
+		},
+		{
+			"opcode": 104,
+			"name": "partystatusstring"
+		},
+		{
+			"opcode": 105,
+			"name": "attachedcontrollercount"
+		},
+		{
+			"opcode": 106,
+			"name": "issplitscreenonlinepossible"
+		},
+		{
+			"opcode": 107,
+			"name": "splitscreenplayercount"
+		},
+		{
+			"opcode": 108,
+			"name": "getplayerdata"
+		},
+		{
+			"opcode": 109,
+			"name": "getplayerdatasplitscreen"
+		},
+		{
+			"opcode": 110,
+			"name": "experienceforlevel"
+		},
+		{
+			"opcode": 111,
+			"name": "levelforexperience"
+		},
+		{
+			"opcode": 112,
+			"name": "isitemunlocked"
+		},
+		{
+			"opcode": 113,
+			"name": "isitemunlockedsplitscreen"
+		},
+		{
+			"opcode": 114,
+			"name": "debugprint"
+		},
+		{
+			"opcode": 115,
+			"name": "getplayerdataanybooltrue"
+		},
+		{
+			"opcode": 116,
+			"name": "weaponclassnew"
+		},
+		{
+			"opcode": 117,
+			"name": "weaponname"
+		},
+		{
+			"opcode": 118,
+			"name": "isreloading"
+		},
+		{
+			"opcode": 119,
+			"name": "savegameavailable"
+		},
+		{
+			"opcode": 120,
+			"name": "unlockeditemcount"
+		},
+		{
+			"opcode": 121,
+			"name": "unlockeditemcountsplitscreen"
+		},
+		{
+			"opcode": 122,
+			"name": "unlockeditem"
+		},
+		{
+			"opcode": 123,
+			"name": "unlockeditemsplitscreen"
+		},
+		{
+			"opcode": 124,
+			"name": "mailsubject"
+		},
+		{
+			"opcode": 125,
+			"name": "mailfrom"
+		},
+		{
+			"opcode": 126,
+			"name": "mailreceived"
+		},
+		{
+			"opcode": 127,
+			"name": "mailbody"
+		},
+		{
+			"opcode": 128,
+			"name": "maillootlocalized"
+		},
+		{
+			"opcode": 129,
+			"name": "mailgivesloot"
+		},
+		{
+			"opcode": 130,
+			"name": "anynewmail"
+		},
+		{
+			"opcode": 131,
+			"name": "mailtimetofollowup"
+		},
+		{
+			"opcode": 132,
+			"name": "mailloottype"
+		},
+		{
+			"opcode": 133,
+			"name": "mailranlottery"
+		},
+		{
+			"opcode": 134,
+			"name": "lotterylootlocalized"
+		},
+		{
+			"opcode": 135,
+			"name": "radarisjammed"
+		},
+		{
+			"opcode": 136,
+			"name": "radarjamintensity"
+		},
+		{
+			"opcode": 137,
+			"name": "radarisenabled"
+		},
+		{
+			"opcode": 138,
+			"name": "isempjammed"
+		},
+		{
+			"opcode": 139,
+			"name": "playerads"
+		},
+		{
+			"opcode": 140,
+			"name": "weaponheatactive"
+		},
+		{
+			"opcode": 141,
+			"name": "weaponheatvalue"
+		},
+		{
+			"opcode": 142,
+			"name": "weaponheatoverheated"
+		},
+		{
+			"opcode": 143,
+			"name": "getsplashtext"
+		},
+		{
+			"opcode": 144,
+			"name": "getsplashdescription"
+		},
+		{
+			"opcode": 145,
+			"name": "getsplashmaterial"
+		},
+		{
+			"opcode": 146,
+			"name": "splashhasicon"
+		},
+		{
+			"opcode": 147,
+			"name": "splashrownum"
+		},
+		{
+			"opcode": 148,
+			"name": "getfocuseditemname"
+		},
+		{
+			"opcode": 149,
+			"name": "getfocuseditemx"
+		},
+		{
+			"opcode": 150,
+			"name": "getfocuseditemy"
+		},
+		{
+			"opcode": 151,
+			"name": "getfocuseditemwidth"
+		},
+		{
+			"opcode": 152,
+			"name": "getfocuseditemheight"
+		},
+		{
+			"opcode": 153,
+			"name": "getitemx"
+		},
+		{
+			"opcode": 154,
+			"name": "getitemy"
+		},
+		{
+			"opcode": 155,
+			"name": "getitemwidth"
+		},
+		{
+			"opcode": 156,
+			"name": "getitemheight"
+		},
+		{
+			"opcode": 157,
+			"name": "playlist"
+		},
+		{
+			"opcode": 158,
+			"name": "scoreboardexternalmutenotice"
+		},
+		{
+			"opcode": 159,
+			"name": "getclientmatchdata"
+		},
+		{
+			"opcode": 160,
+			"name": "getclientmatchdatadef"
+		},
+		{
+			"opcode": 161,
+			"name": "getmapname"
+		},
+		{
+			"opcode": 162,
+			"name": "getmapimage"
+		},
+		{
+			"opcode": 163,
+			"name": "getmapcustom"
+		},
+		{
+			"opcode": 164,
+			"name": "getmigrationstatus"
+		},
+		{
+			"opcode": 165,
+			"name": "getplayercardinfo"
+		},
+		{
+			"opcode": 166,
+			"name": "isofflineprofileselected"
+		},
+		{
+			"opcode": 167,
+			"name": "coopplayer"
+		},
+		{
+			"opcode": 168,
+			"name": "iscoop"
+		},
+		{
+			"opcode": 169,
+			"name": "getpartystatus"
+		},
+		{
+			"opcode": 170,
+			"name": "getsearchparams"
+		},
+		{
+			"opcode": 171,
+			"name": "gettimeplayed"
+		},
+		{
+			"opcode": 172,
+			"name": "isselectedplayerfriend"
+		},
+		{
+			"opcode": 173,
+			"name": "getcharbyindex"
+		},
+		{
+			"opcode": 174,
+			"name": "getprofiledata"
+		},
+		{
+			"opcode": 175,
+			"name": "isprofilesignedin"
+		},
+		{
+			"opcode": 176,
+			"name": "getwaitpopupstatus"
+		},
+		{
+			"opcode": 177,
+			"name": "getnattype"
+		},
+		{
+			"opcode": 178,
+			"name": "getlocalizednattype"
+		},
+		{
+			"opcode": 179,
+			"name": "getadjustedsafeareahorizontal"
+		},
+		{
+			"opcode": 180,
+			"name": "getadjustedsafeareavertical"
+		},
+		{
+			"opcode": 181,
+			"name": "connectioninfo"
+		},
+		{
+			"opcode": 182,
+			"name": "offlineprofilecansave"
+		},
+		{
+			"opcode": 183,
+			"name": "allsplitscreenprofilescansave"
+		},
+		{
+			"opcode": 184,
+			"name": "allsplitscreenprofilesaresignedin"
+		},
+		{
+			"opcode": 185,
+			"name": "coopready"
+		},
+		{
+			"opcode": 186,
+			"name": "dowehavemappack"
+		},
+		{
+			"opcode": 187,
+			"name": "cantogglefullscreen"
+		},
+		{
+			"opcode": 188,
+			"name": "isbasegamelicensevalid"
+		},
+		{
+			"opcode": 189,
+			"name": "isprofilesyncedwithcloud"
+		},
+		{
+			"opcode": 190,
+			"name": "getstoremismatchmessagegdk"
+		},
+		{
+			"opcode": 191,
+			"name": "getpartyinvitedescription"
+		}
+	],
+	"operator_name_xrefs": [],
+	"precedence": [
+		2147483647, 0, 11, 11, 11, 13, 13, 9, 15, 15, 15, 15, 16, 16, 25, 25, 99, 80, 17, 18, 9, 14, 14
+	],
+	"expression_dispatch": {
+		"switch_table": "0x14025b1c4",
+		"tail_cases": [
+			{
+				"opcode": 186,
+				"name": "dowehavemappack",
+				"target": "0x1402564cd"
+			},
+			{
+				"opcode": 187,
+				"name": "cantogglefullscreen",
+				"target": "0x14025b01a"
+			},
+			{
+				"opcode": 188,
+				"name": "isbasegamelicensevalid",
+				"target": "0x14025b030"
+			},
+			{
+				"opcode": 189,
+				"name": "isprofilesyncedwithcloud",
+				"target": "0x14025b047"
+			},
+			{
+				"opcode": 190,
+				"name": "getstoremismatchmessagegdk",
+				"target": "0x14025b061"
+			},
+			{
+				"opcode": 191,
+				"name": "getpartyinvitedescription",
+				"target": "0x14025b0ca"
+			}
+		]
+	},
+	"ui_script_subcommands": [
+		"StartServer",
+		"loadArenas",
+		"loadGameInfo",
+		"clearError",
+		"Quit",
+		"Controls",
+		"Leave",
+		"closeingame",
+		"update",
+		"startSingleplayer",
+		"getLanguage",
+		"verifyLanguage",
+		"updateLanguage",
+		"mutePlayer",
+		"openMenuOnDvar",
+		"openMenuOnDvarNot",
+		"closeMenuOnDvar",
+		"closeMenuOnDvarNot",
+		"setRecommended",
+		"clearLoadErrorsSummary",
+		"clearClientMatchData"
+	],
+	"analysis_scope": "Static analysis of the x64 IDB. No runtime execution or .menu compilation conformance test.",
+	"keyword_scan": {
+		"segments": [
+			{
+				"name": ".text",
+				"start": "0x140001000",
+				"end": "0x140387000"
+			},
+			{
+				"name": ".rdata",
+				"start": "0x1403881b8",
+				"end": "0x140462000"
+			},
+			{
+				"name": ".data",
+				"start": "0x140462000",
+				"end": "0x1494f6000"
+			}
+		],
+		"nul_terminated_suffix_hits": {
+			"menudef": [],
+			"itemdef": [
+				{
+					"address": "0x1403c93c1",
+					"encoding": "ascii"
+				}
+			],
+			"functiondef": [],
+			"loadmenu": [],
+			"onopen": [],
+			"onclose": [],
+			"execkey": [],
+			"dvarstrlist": [],
+			"pc_readtoken": [],
+			"pc_loadsource": []
+		}
+	}
+}

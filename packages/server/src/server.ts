@@ -4,6 +4,7 @@ import {
 	SETTINGS_SECTION,
 	type Settings,
 	Stores,
+	isMenuDocument,
 	loadEngines,
 	normalizeUri,
 	uriToFsPath,
@@ -33,6 +34,17 @@ import {
 import { provideDefinition } from "./features/definition";
 import { provideHover } from "./features/hover";
 import { provideInlayHints } from "./features/inlayHints";
+import {
+	menuColorPresentations,
+	menuColors,
+	menuCompletion,
+	menuDefinition,
+	menuDiagnostics,
+	menuFolding,
+	menuHover,
+	menuSymbols,
+	menuTokens,
+} from "./features/menu";
 import { provideSemanticTokens, semanticTokensLegend } from "./features/semanticTokens";
 import { provideSignatureHelp } from "./features/signatureHelp";
 
@@ -101,6 +113,8 @@ connection.onInitialize(
 			capabilities: {
 				textDocumentSync: TextDocumentSyncKind.Incremental,
 				definitionProvider: true,
+				documentSymbolProvider: true,
+				foldingRangeProvider: true,
 				colorProvider: true,
 				completionProvider: {
 					triggerCharacters: completionTriggerCharacters,
@@ -180,49 +194,71 @@ const applyRootDirectories = async () => {
 	}
 };
 
-documents.onDidOpen(({ document }) => {
-	openDocuments.set(normalizeUri(document.uri), document);
-	server.stores.gsc.onDocumentChanged(document.uri);
-});
+// TextDocuments emits a content-change event for the initial open as well.
 documents.onDidChangeContent(({ document }) => {
 	openDocuments.set(normalizeUri(document.uri), document);
-	server.stores.gsc.onDocumentChanged(document.uri);
+	if (isMenuDocument(document)) {
+		connection.sendDiagnostics({
+			uri: document.uri,
+			version: document.version,
+			diagnostics: menuDiagnostics(document),
+		});
+	} else server.stores.gsc.onDocumentChanged(document.uri);
 });
 documents.onDidClose(({ document }) => {
 	openDocuments.delete(normalizeUri(document.uri));
-	server.stores.gsc.onDocumentClosed(document.uri);
+	if (isMenuDocument(document)) connection.sendDiagnostics({ uri: document.uri, diagnostics: [] });
+	else server.stores.gsc.onDocumentClosed(document.uri);
 });
 
 /** Runs a request handler for an open document, `null` if the document is unknown. */
-const withDocument = async <R>(
+const withDocument = async <R, M = never>(
 	uri: string,
 	handler: (context: DocumentContext) => R | Promise<R>,
-): Promise<R | null> => {
+	menuHandler?: (document: TextDocument) => M | Promise<M>,
+): Promise<R | M | null> => {
 	await settingsReady;
+	const document = server.documents.get(uri);
+	if (document && isMenuDocument(document)) return menuHandler ? menuHandler(document) : null;
 	const context = getDocumentContext(server, uri);
 	return context ? handler(context) : null;
 };
 
 connection.onDefinition((params, token) =>
-	withDocument(params.textDocument.uri, (context) =>
-		provideDefinition(server, context, params, token),
+	withDocument(
+		params.textDocument.uri,
+		(context) => provideDefinition(server, context, params, token),
+		(document) => menuDefinition(server, document, params.position, token),
 	),
 );
 connection.onDocumentColor(
 	async (params, token) =>
-		(await withDocument(params.textDocument.uri, (context) =>
-			provideDocumentColors(context, token),
+		(await withDocument(
+			params.textDocument.uri,
+			(context) => provideDocumentColors(context, token),
+			(document) => (server.stores.settings.colors.enable === "off" ? [] : menuColors(document)),
 		)) ?? [],
 );
-connection.onColorPresentation((params) => provideColorPresentations(params));
+connection.onColorPresentation((params) => {
+	const document = server.documents.get(params.textDocument.uri);
+	return document && isMenuDocument(document)
+		? menuColorPresentations(params)
+		: provideColorPresentations(params);
+});
 connection.onCompletion((params, token) =>
-	withDocument(params.textDocument.uri, (context) =>
-		provideCompletionItems(server, context, params, token),
+	withDocument(
+		params.textDocument.uri,
+		(context) => provideCompletionItems(server, context, params, token),
+		(document) => menuCompletion(document, params.position),
 	),
 );
 connection.onCompletionResolve((item) => resolveCompletionItem(server, item));
 connection.onHover((params, token) =>
-	withDocument(params.textDocument.uri, (context) => provideHover(server, context, params, token)),
+	withDocument(
+		params.textDocument.uri,
+		(context) => provideHover(server, context, params, token),
+		(document) => menuHover(document, params.position),
+	),
 );
 connection.onSignatureHelp((params, token) =>
 	withDocument(params.textDocument.uri, (context) =>
@@ -230,17 +266,30 @@ connection.onSignatureHelp((params, token) =>
 	),
 );
 connection.languages.semanticTokens.on((params, token) =>
-	withDocument(params.textDocument.uri, (context) => provideSemanticTokens(server, context, token)),
+	withDocument(
+		params.textDocument.uri,
+		(context) => provideSemanticTokens(server, context, token),
+		(document) => menuTokens(document),
+	),
 );
 connection.languages.semanticTokens.onRange((params, token) =>
-	withDocument(params.textDocument.uri, (context) =>
-		provideSemanticTokens(server, context, token, params.range),
+	withDocument(
+		params.textDocument.uri,
+		(context) => provideSemanticTokens(server, context, token, params.range),
+		(document) => menuTokens(document, params.range),
 	),
 );
 connection.languages.inlayHint.on((params, token) =>
 	withDocument(params.textDocument.uri, (context) =>
 		provideInlayHints(server, context, params, token),
 	),
+);
+
+connection.onDocumentSymbol((params) =>
+	withDocument(params.textDocument.uri, () => null, menuSymbols),
+);
+connection.onFoldingRanges((params) =>
+	withDocument(params.textDocument.uri, () => null, menuFolding),
 );
 
 connection.onShutdown(() => watcher?.dispose());

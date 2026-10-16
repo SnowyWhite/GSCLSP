@@ -1,5 +1,9 @@
 # GSC (Call of Duty) language server
 
+IW4/IW4x `.menu` files are also supported: completion, hover, definition navigation,
+highlighting, outlines, folding, RGBA colors and structural diagnostics. See
+[menu support and limitations](../../../doc/menu.md).
+
 Language support for Call of Duty GSC (game script) in JetBrains IDEs (CLion, IntelliJ IDEA, ...)
 through [LSP4IJ](https://github.com/redhat-developer/lsp4ij).
 

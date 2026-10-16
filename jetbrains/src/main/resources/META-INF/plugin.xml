@@ -28,6 +28,7 @@
 		<fileNamePatternMapping patterns="*.gsc;*.csc"
 								serverId="gscLanguageServer"
 								languageId="gsc"/>
+		<fileNamePatternMapping patterns="*.menu" serverId="gscLanguageServer" languageId="menu"/>
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">

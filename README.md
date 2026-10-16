@@ -1,5 +1,9 @@
 # GSCLSP
 
+IW4/IW4x `.menu` files are also supported: completion, hover, definition navigation,
+highlighting, outlines, folding, RGBA colors and structural diagnostics. See
+[menu support and limitations](./doc/menu.md).
+
 GSCLSP is a language server (LSP) for Call of Duty GSC (game script), supporting the IW3 and IW4 engines.
 It works with any LSP client, e.g. JetBrains IDEs (CLion, IntelliJ IDEA, ...) through
 [LSP4IJ](https://github.com/redhat-developer/lsp4ij).

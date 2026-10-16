@@ -1,5 +1,9 @@
 # GSCLSP for VS Code
 
+IW4/IW4x `.menu` files are also supported: completion, hover, definition navigation,
+highlighting, outlines, folding, RGBA colors and structural diagnostics. See
+[menu support and limitations](../../doc/menu.md).
+
 Call of Duty GSC (game script, IW3 and IW4) support through gsclsp: code completion,
 hover documentation, signature help,
 go to definition, semantic and TextMate highlighting, parameter name inlay hints and a color picker

@@ -306,3 +306,256 @@ describe("language server settings", () => {
 		}
 	});
 });
+
+describe("menu language server over stdio", () => {
+	let root: string;
+	let session: Session;
+	let uri: string;
+	const text = [
+		'#include "common.inc"',
+		"{",
+		' functionDef { name "enabled" value dvarInt("ui_enabled") }',
+		" menuDef {",
+		'  name "main"',
+		"  rect 0 0 WIDTH 480",
+		'  onOpen { setdvar "ui_test" "1"; open main; }',
+		"  itemDef {",
+		'   name "button"',
+		"   forecolor 1 0.5 0 0.25",
+		"   visible (enabled() && CHECK(1))",
+		"   action { setfocus button; }",
+		"   // setdvar and { stay comments",
+		"  }",
+		" }",
+		"}",
+	].join("\n");
+	const at = (word: string, delta = 1) => {
+		const prefix = text.slice(0, text.indexOf(word) + delta);
+		const lines = prefix.split("\n");
+		return { line: lines.length - 1, character: lines.at(-1)!.length };
+	};
+	const params = (word: string, delta = 1) => ({
+		textDocument: { uri },
+		position: at(word, delta),
+	});
+
+	before(async () => {
+		root = await mkdtemp(join(tmpdir(), "menu-lsp-test-"));
+		await writeFile(
+			join(root, "common.inc"),
+			'#define WIDTH 640\n#include "common.inc"\n#define CHECK(x) (x)\n',
+		);
+		uri = pathToFileURL(join(root, "main.menu")).href;
+		session = await startSession({ capabilities: {}, workspaceFolders: [root] });
+		await session.connection.sendNotification(DidOpenTextDocumentNotification.type, {
+			textDocument: { uri, languageId: "menu", version: 1, text },
+		});
+	});
+	after(async () => {
+		await stopSession(session);
+		await rm(root, { recursive: true, force: true });
+	});
+
+	it("completes UI properties and commands without GSC functions", async () => {
+		const props = await session.connection.sendRequest(CompletionRequest.type, params("forecolor"));
+		assert.ok(Array.isArray(props));
+		assert.ok(props.some((item) => item.label === "forecolor"));
+		assert.ok(!props.some((item) => item.label === "onOpen" || item.label === "thread"));
+		const commands = await session.connection.sendRequest(
+			CompletionRequest.type,
+			params("setdvar"),
+		);
+		assert.ok(Array.isArray(commands));
+		assert.ok(commands.some((item) => item.label === "setdvar"));
+		assert.ok(!commands.some((item) => item.label === "forecolor"));
+	});
+
+	it("does not complete within comments or strings", async () => {
+		for (const word of ["setdvar and", '"ui_test"']) {
+			assert.deepEqual(
+				await session.connection.sendRequest(CompletionRequest.type, params(word, 3)),
+				[],
+			);
+		}
+	});
+
+	it("shows UI syntax on hover", async () => {
+		const hover = await session.connection.sendRequest(HoverRequest.type, params("forecolor"));
+		assert.match((hover?.contents as MarkupContent).value, /forecolor r \[g \[b \[a\]\]\]/);
+	});
+
+	it("navigates includes, included macros, menu names, item names and custom functions", async () => {
+		for (const [word, line, target] of [
+			["common.inc", 0, "common.inc"],
+			["WIDTH", 0, "common.inc"],
+			["open main", 4, "main.menu"],
+			["setfocus button", 8, "main.menu"],
+			["enabled()", 2, "main.menu"],
+			["CHECK(1)", 2, "common.inc"],
+		] as const) {
+			const delta = word.startsWith("open ") ? 6 : word.startsWith("setfocus ") ? 11 : 1;
+			const locations = await session.connection.sendRequest(
+				DefinitionRequest.type,
+				params(word, delta),
+			);
+			assert.ok(Array.isArray(locations) && locations.length > 0, word);
+			const location = locations[0] as { uri: string; range: { start: { line: number } } };
+			assert.ok(location.uri.endsWith(target), word);
+			assert.equal(location.range.start.line, line, word);
+		}
+		assert.equal(
+			await session.connection.sendRequest(DefinitionRequest.type, params("ui_test")),
+			null,
+		);
+	});
+
+	it("uses unsaved include contents and terminates include cycles", async () => {
+		const includeUri = pathToFileURL(join(root, "common.inc")).href;
+		await session.connection.sendNotification(DidOpenTextDocumentNotification.type, {
+			textDocument: {
+				uri: includeUri,
+				languageId: "menu",
+				version: 1,
+				text: '\n#define WIDTH 320\n#include "common.inc"',
+			},
+		});
+		const locations = await session.connection.sendRequest(DefinitionRequest.type, params("WIDTH"));
+		assert.equal((locations as { range: { start: { line: number } } }[])[0].range.start.line, 1);
+		assert.equal(
+			await session.connection.sendRequest(DefinitionRequest.type, params("rect")),
+			null,
+		);
+	});
+
+	it("resolves nested includes only through content roots", async () => {
+		const nestedUri = pathToFileURL(join(root, "ui_mp", "nested.menu")).href;
+		const localUri = pathToFileURL(join(root, "ui_mp", "local.inc")).href;
+		const nestedText = '#include "common.inc"\n#include "local.inc"\n{ loadMenu { "common.inc" } }';
+		for (const [target, content] of [
+			[nestedUri, nestedText],
+			[localUri, "#define LOCAL 1"],
+		])
+			await session.connection.sendNotification(DidOpenTextDocumentNotification.type, {
+				textDocument: { uri: target, languageId: "menu", version: 1, text: content },
+			});
+		const request = (line: number, character: number) =>
+			session.connection.sendRequest(DefinitionRequest.type, {
+				textDocument: { uri: nestedUri },
+				position: { line, character },
+			});
+		for (const [line, character] of [
+			[0, 12],
+			[2, 18],
+		]) {
+			const result = await request(line, character);
+			assert.equal(
+				(result as { uri: string }[])[0].uri,
+				pathToFileURL(join(root, "common.inc")).href,
+			);
+		}
+		assert.equal(await request(1, 12), null);
+	});
+
+	it("navigates decoded names case-insensitively with original source ranges", async () => {
+		const escapedUri = pathToFileURL(join(root, "escaped.menu")).href;
+		const source = String.raw`{ menuDef { name "ma\in" onOpen { open MAIN; } } }`;
+		await session.connection.sendNotification(DidOpenTextDocumentNotification.type, {
+			textDocument: { uri: escapedUri, languageId: "menu", version: 1, text: source },
+		});
+		const result = await session.connection.sendRequest(DefinitionRequest.type, {
+			textDocument: { uri: escapedUri },
+			position: { line: 0, character: source.indexOf("MAIN") + 1 },
+		});
+		const location = (
+			result as { range: { start: { character: number }; end: { character: number } } }[]
+		)[0];
+		assert.equal(
+			source.slice(location.range.start.character, location.range.end.character),
+			String.raw`"ma\in"`,
+		);
+	});
+
+	it("returns RGBA colors and menu-formatted color edits", async () => {
+		const colors = await session.connection.sendRequest(DocumentColorRequest.type, {
+			textDocument: { uri },
+		});
+		assert.equal(colors.length, 1);
+		assert.deepEqual(colors[0].color, { red: 1, green: 0.5, blue: 0, alpha: 0.25 });
+		const edits = (await session.connection.sendRequest("textDocument/colorPresentation", {
+			textDocument: { uri },
+			...colors[0],
+		})) as { label: string }[];
+		assert.equal(edits[0].label, "1 0.5 0 0.25");
+	});
+
+	it("provides a nested outline, folds and semantic tokens", async () => {
+		const symbols = (await session.connection.sendRequest("textDocument/documentSymbol", {
+			textDocument: { uri },
+		})) as { name: string; children: { name: string }[] }[];
+		assert.deepEqual(
+			symbols.map((s) => s.name),
+			["enabled", "main"],
+		);
+		assert.equal(symbols[1].children[0].name, "button");
+		const folds = (await session.connection.sendRequest("textDocument/foldingRange", {
+			textDocument: { uri },
+		})) as unknown[];
+		assert.ok(folds.length >= 3);
+		const tokens = await session.connection.sendRequest(SemanticTokensRequest.type, {
+			textDocument: { uri },
+		});
+		assert.ok(tokens!.data.length > 0);
+	});
+
+	it("never runs GSC signature help or inlay hints for menus", async () => {
+		assert.equal(
+			await session.connection.sendRequest(SignatureHelpRequest.type, params("enabled()", 8)),
+			null,
+		);
+		assert.equal(
+			await session.connection.sendRequest(InlayHintRequest.type, {
+				textDocument: { uri },
+				range: { start: { line: 0, character: 0 }, end: { line: 16, character: 0 } },
+			}),
+			null,
+		);
+	});
+
+	it("publishes versioned diagnostics, clears them after editing and on close", async () => {
+		const badUri = pathToFileURL(join(root, "broken.menu")).href;
+		const diagnostics: { uri: string; version?: number; diagnostics: unknown[] }[] = [];
+		const subscription = session.connection.onNotification(
+			"textDocument/publishDiagnostics",
+			(params) => {
+				diagnostics.push(params);
+			},
+		);
+		await session.connection.sendNotification(DidOpenTextDocumentNotification.type, {
+			textDocument: { uri: badUri, languageId: "plaintext", version: 1, text: "{ menuDef {" },
+		});
+		await session.connection.sendRequest(HoverRequest.type, {
+			textDocument: { uri: badUri },
+			position: { line: 0, character: 3 },
+		});
+		assert.ok(
+			diagnostics.some((d) => d.uri === badUri && d.version === 1 && d.diagnostics.length > 0),
+		);
+		await session.connection.sendNotification(DidChangeTextDocumentNotification.type, {
+			textDocument: { uri: badUri, version: 2 },
+			contentChanges: [{ text: '{ menuDef { name "fixed" } }' }],
+		});
+		await session.connection.sendRequest(HoverRequest.type, {
+			textDocument: { uri: badUri },
+			position: { line: 0, character: 3 },
+		});
+		assert.ok(
+			diagnostics.some((d) => d.uri === badUri && d.version === 2 && d.diagnostics.length === 0),
+		);
+		await session.connection.sendNotification("textDocument/didClose", {
+			textDocument: { uri: badUri },
+		});
+		await session.connection.sendRequest(HoverRequest.type, params("forecolor"));
+		assert.deepEqual(diagnostics.at(-1)?.diagnostics, []);
+		subscription.dispose();
+	});
+});

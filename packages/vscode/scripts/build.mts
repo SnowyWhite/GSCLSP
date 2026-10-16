@@ -42,6 +42,14 @@ await cp(
 	join(packageDir, "language-configuration.json"),
 	join(distDir, "language-configuration.json"),
 );
+await cp(
+	join(serverDistDir, "textmate", "menu.tmLanguage.json"),
+	join(distDir, "menu.tmLanguage.json"),
+);
+await cp(
+	join(packageDir, "menu-language-configuration.json"),
+	join(distDir, "menu-language-configuration.json"),
+);
 await cp(join(packageDir, "README.md"), join(distDir, "README.md"));
 await cp(join(repositoryDir, "LICENSE"), join(distDir, "LICENSE"));
 
@@ -78,19 +86,31 @@ await writeFile(
 		contributes: {
 			languages: [
 				{
+					id: "menu",
+					aliases: ["Call of Duty Menu"],
+					extensions: [".menu"],
+					configuration: "./menu-language-configuration.json",
+				},
+				{
 					id: "gsc",
 					aliases: ["GSC", "Game Script"],
 					extensions: [".gsc", ".csc"],
 					configuration: "./language-configuration.json",
 				},
 			],
-			grammars: [{ language: "gsc", scopeName: "source.gsc", path: "./data/grammar.json" }],
+			grammars: [
+				{ language: "gsc", scopeName: "source.gsc", path: "./data/grammar.json" },
+				{ language: "menu", scopeName: "source.menu", path: "./menu.tmLanguage.json" },
+			],
 			configuration: {
 				title: "GSC",
 				properties: toConfigurationProperties(schema, SETTINGS_SECTION),
 			},
 			// Game scripts are Windows-1252 encoded.
-			configurationDefaults: { "[gsc]": { "files.encoding": "windows1252" } },
+			configurationDefaults: {
+				"[gsc]": { "files.encoding": "windows1252" },
+				"[menu]": { "files.encoding": "windows1252" },
+			},
 		},
 	}),
 );

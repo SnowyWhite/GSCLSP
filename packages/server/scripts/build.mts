@@ -6,6 +6,7 @@ import {
 	createDefaultSettings,
 	createSettingsSchema,
 	loadEngines,
+	menuGrammar,
 } from "@gsclsp/core";
 import { build } from "esbuild";
 
@@ -71,7 +72,10 @@ async function writeLsp4ijTemplate(dir: string) {
 		// expects the `gsclsp` standalone executable on the PATH.
 		programArgs: { default: "gsclsp --stdio" },
 		// File name patterns rather than a file type, so TextMate highlighting stays active:
-		fileTypeMappings: [{ fileType: { patterns: ["*.gsc", "*.csc"] }, languageId: "gsc" }],
+		fileTypeMappings: [
+			{ fileType: { patterns: ["*.gsc", "*.csc"] }, languageId: "gsc" },
+			{ fileType: { patterns: ["*.menu"] }, languageId: "menu" },
+		],
 	});
 	await writeJSON(join(dir, "settings.json"), {
 		[SETTINGS_SECTION]: createDefaultSettings(engines),
@@ -131,13 +135,20 @@ async function writeLsp4ijTemplate(dir: string) {
 async function writeTextMateBundle(dir: string) {
 	await mkdir(dir, { recursive: true });
 	await cp(join(dataDir, "grammar.json"), join(dir, "grammar.json"));
+	await writeJSON(join(dir, "menu.tmLanguage.json"), menuGrammar);
 	await cp(join(distDir, "LICENSE"), join(dir, "LICENSE"));
 	await writeJSON(join(dir, "package.json"), {
 		name: "gsc-textmate",
 		displayName: "GSC (Call of Duty)",
 		contributes: {
-			languages: [{ id: "gsc", aliases: ["GSC", "Game Script"], extensions: [".gsc", ".csc"] }],
-			grammars: [{ language: "gsc", scopeName: "source.gsc", path: "./grammar.json" }],
+			languages: [
+				{ id: "gsc", aliases: ["GSC", "Game Script"], extensions: [".gsc", ".csc"] },
+				{ id: "menu", aliases: ["Call of Duty Menu"], extensions: [".menu"] },
+			],
+			grammars: [
+				{ language: "gsc", scopeName: "source.gsc", path: "./grammar.json" },
+				{ language: "menu", scopeName: "source.menu", path: "./menu.tmLanguage.json" },
+			],
 		},
 	});
 }

@@ -7,7 +7,10 @@ local executable = vim.fn.exepath('gsclsp')
 ---@type vim.lsp.Config
 return {
 	cmd = { executable ~= '' and executable or 'gsclsp', '--stdio' },
-	filetypes = { 'gsc' },
+	filetypes = { 'gsc', 'codmenu' },
+	get_language_id = function(_, filetype)
+		return filetype == 'codmenu' and 'menu' or filetype
+	end,
 	-- Script paths (maps\mp\_utility) are relative to the folder containing `maps`, so prefer it as the
 	-- root: without configured root directories, the server uses it as the default engine's.
 	root_markers = { 'maps', '.git' },

@@ -102,5 +102,18 @@ directories the server uses the project folder as the default engine's."
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(gsc-mode . gsc--eglot-contact)))
 
+;;;###autoload
+(define-derived-mode cod-menu-mode gsc-mode "CoD Menu"
+  "Major mode for Call of Duty .menu files."
+  (setq-local font-lock-defaults
+              '((("\\_<\\(?:menuDef\\|itemDef\\|functionDef\\|loadMenu\\|onOpen\\|onClose\\|action\\|if\\|else\\)\\_>" . font-lock-keyword-face)
+                 ("^\\s-*#\\s-*\\w+" . font-lock-preprocessor-face)))))
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.menu\\'" . cod-menu-mode))
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '((cod-menu-mode :language-id "menu") . gsc--eglot-contact)))
+
 (provide 'gsc-mode)
 ;;; gsc-mode.el ends here

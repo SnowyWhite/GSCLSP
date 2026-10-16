@@ -1,0 +1,1916 @@
+[
+	{
+		"name": "name",
+		"scope": "menu",
+		"syntax": "name text",
+		"kind": "property"
+	},
+	{
+		"name": "fullScreen",
+		"scope": "menu",
+		"syntax": "fullScreen 0 | 1",
+		"kind": "property"
+	},
+	{
+		"name": "screenSpace",
+		"scope": "menu",
+		"syntax": "screenSpace",
+		"kind": "property"
+	},
+	{
+		"name": "decoration",
+		"scope": "menu",
+		"syntax": "decoration",
+		"kind": "property"
+	},
+	{
+		"name": "style",
+		"scope": "menu",
+		"syntax": "style integer",
+		"kind": "property"
+	},
+	{
+		"name": "onOpen",
+		"scope": "menu",
+		"syntax": "onOpen { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "onClose",
+		"scope": "menu",
+		"syntax": "onClose { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "onRequestClose",
+		"scope": "menu",
+		"syntax": "onRequestClose { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "onESC",
+		"scope": "menu",
+		"syntax": "onESC { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "border",
+		"scope": "menu",
+		"syntax": "border integer",
+		"kind": "property"
+	},
+	{
+		"name": "borderSize",
+		"scope": "menu",
+		"syntax": "borderSize number",
+		"kind": "property"
+	},
+	{
+		"name": "backcolor",
+		"scope": "menu",
+		"syntax": "backcolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "forecolor",
+		"scope": "menu",
+		"syntax": "forecolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "bordercolor",
+		"scope": "menu",
+		"syntax": "bordercolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "focuscolor",
+		"scope": "menu",
+		"syntax": "focuscolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "outlinecolor",
+		"scope": "menu",
+		"syntax": "outlinecolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "background",
+		"scope": "menu",
+		"syntax": "background text",
+		"kind": "property"
+	},
+	{
+		"name": "ownerdraw",
+		"scope": "menu",
+		"syntax": "ownerdraw integer",
+		"kind": "property"
+	},
+	{
+		"name": "ownerdrawFlag",
+		"scope": "menu",
+		"syntax": "ownerdrawFlag integer",
+		"kind": "property"
+	},
+	{
+		"name": "outOfBoundsClick",
+		"scope": "menu",
+		"syntax": "outOfBoundsClick",
+		"kind": "property"
+	},
+	{
+		"name": "soundLoop",
+		"scope": "menu",
+		"syntax": "soundLoop text",
+		"kind": "property"
+	},
+	{
+		"name": "popup",
+		"scope": "menu",
+		"syntax": "popup",
+		"kind": "property"
+	},
+	{
+		"name": "fadeClamp",
+		"scope": "menu",
+		"syntax": "fadeClamp number",
+		"kind": "property"
+	},
+	{
+		"name": "fadeCycle",
+		"scope": "menu",
+		"syntax": "fadeCycle integer",
+		"kind": "property"
+	},
+	{
+		"name": "fadeAmount",
+		"scope": "menu",
+		"syntax": "fadeAmount number",
+		"kind": "property"
+	},
+	{
+		"name": "fadeInAmount",
+		"scope": "menu",
+		"syntax": "fadeInAmount number",
+		"kind": "property"
+	},
+	{
+		"name": "blurWorld",
+		"scope": "menu",
+		"syntax": "blurWorld number",
+		"kind": "property"
+	},
+	{
+		"name": "legacySplitScreenScale",
+		"scope": "menu",
+		"syntax": "legacySplitScreenScale",
+		"kind": "property"
+	},
+	{
+		"name": "hiddenDuringScope",
+		"scope": "menu",
+		"syntax": "hiddenDuringScope",
+		"kind": "property"
+	},
+	{
+		"name": "hiddenDuringFlashbang",
+		"scope": "menu",
+		"syntax": "hiddenDuringFlashbang",
+		"kind": "property"
+	},
+	{
+		"name": "hiddenDuringUI",
+		"scope": "menu",
+		"syntax": "hiddenDuringUI",
+		"kind": "property"
+	},
+	{
+		"name": "allowedBinding",
+		"scope": "menu",
+		"syntax": "allowedBinding text",
+		"kind": "property"
+	},
+	{
+		"name": "textOnlyFocus",
+		"scope": "menu",
+		"syntax": "textOnlyFocus",
+		"kind": "property"
+	},
+	{
+		"name": "visible",
+		"scope": "menu",
+		"syntax": "visible expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect X",
+		"scope": "menu",
+		"syntax": "exp rect X expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect Y",
+		"scope": "menu",
+		"syntax": "exp rect Y expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect W",
+		"scope": "menu",
+		"syntax": "exp rect W expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect H",
+		"scope": "menu",
+		"syntax": "exp rect H expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp openSound",
+		"scope": "menu",
+		"syntax": "exp openSound expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp closeSound",
+		"scope": "menu",
+		"syntax": "exp closeSound expression",
+		"kind": "property"
+	},
+	{
+		"name": "rect",
+		"scope": "menu",
+		"syntax": "rect x y width height [horizontalAlign verticalAlign]",
+		"kind": "property"
+	},
+	{
+		"name": "execKey",
+		"scope": "menu",
+		"syntax": "execKey \"key\" { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "execKeyInt",
+		"scope": "menu",
+		"syntax": "execKeyInt keyCode { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "name",
+		"scope": "item",
+		"syntax": "name text",
+		"kind": "property"
+	},
+	{
+		"name": "text",
+		"scope": "item",
+		"syntax": "text text",
+		"kind": "property"
+	},
+	{
+		"name": "textsavegame",
+		"scope": "item",
+		"syntax": "textsavegame",
+		"kind": "property"
+	},
+	{
+		"name": "textcinematicsubtitle",
+		"scope": "item",
+		"syntax": "textcinematicsubtitle",
+		"kind": "property"
+	},
+	{
+		"name": "group",
+		"scope": "item",
+		"syntax": "group text",
+		"kind": "property"
+	},
+	{
+		"name": "style",
+		"scope": "item",
+		"syntax": "style integer",
+		"kind": "property"
+	},
+	{
+		"name": "decoration",
+		"scope": "item",
+		"syntax": "decoration",
+		"kind": "property"
+	},
+	{
+		"name": "autowrapped",
+		"scope": "item",
+		"syntax": "autowrapped",
+		"kind": "property"
+	},
+	{
+		"name": "horizontalscroll",
+		"scope": "item",
+		"syntax": "horizontalscroll",
+		"kind": "property"
+	},
+	{
+		"name": "type",
+		"scope": "item",
+		"syntax": "type integer",
+		"kind": "property"
+	},
+	{
+		"name": "border",
+		"scope": "item",
+		"syntax": "border integer",
+		"kind": "property"
+	},
+	{
+		"name": "borderSize",
+		"scope": "item",
+		"syntax": "borderSize number",
+		"kind": "property"
+	},
+	{
+		"name": "ownerdraw",
+		"scope": "item",
+		"syntax": "ownerdraw integer",
+		"kind": "property"
+	},
+	{
+		"name": "align",
+		"scope": "item",
+		"syntax": "align integer",
+		"kind": "property"
+	},
+	{
+		"name": "textalign",
+		"scope": "item",
+		"syntax": "textalign integer",
+		"kind": "property"
+	},
+	{
+		"name": "textalignx",
+		"scope": "item",
+		"syntax": "textalignx number",
+		"kind": "property"
+	},
+	{
+		"name": "textaligny",
+		"scope": "item",
+		"syntax": "textaligny number",
+		"kind": "property"
+	},
+	{
+		"name": "textscale",
+		"scope": "item",
+		"syntax": "textscale number",
+		"kind": "property"
+	},
+	{
+		"name": "textstyle",
+		"scope": "item",
+		"syntax": "textstyle integer",
+		"kind": "property"
+	},
+	{
+		"name": "textfont",
+		"scope": "item",
+		"syntax": "textfont integer",
+		"kind": "property"
+	},
+	{
+		"name": "backcolor",
+		"scope": "item",
+		"syntax": "backcolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "forecolor",
+		"scope": "item",
+		"syntax": "forecolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "bordercolor",
+		"scope": "item",
+		"syntax": "bordercolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "outlinecolor",
+		"scope": "item",
+		"syntax": "outlinecolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "disablecolor",
+		"scope": "item",
+		"syntax": "disablecolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "glowcolor",
+		"scope": "item",
+		"syntax": "glowcolor r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "background",
+		"scope": "item",
+		"syntax": "background text",
+		"kind": "property"
+	},
+	{
+		"name": "onFocus",
+		"scope": "item",
+		"syntax": "onFocus { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "leaveFocus",
+		"scope": "item",
+		"syntax": "leaveFocus { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "mouseEnter",
+		"scope": "item",
+		"syntax": "mouseEnter { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "mouseExit",
+		"scope": "item",
+		"syntax": "mouseExit { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "mouseEnterText",
+		"scope": "item",
+		"syntax": "mouseEnterText { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "mouseExitText",
+		"scope": "item",
+		"syntax": "mouseExitText { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "action",
+		"scope": "item",
+		"syntax": "action { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "accept",
+		"scope": "item",
+		"syntax": "accept { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "dvar",
+		"scope": "item",
+		"syntax": "dvar text",
+		"kind": "property"
+	},
+	{
+		"name": "focusSound",
+		"scope": "item",
+		"syntax": "focusSound text",
+		"kind": "property"
+	},
+	{
+		"name": "ownerdrawFlag",
+		"scope": "item",
+		"syntax": "ownerdrawFlag integer",
+		"kind": "property"
+	},
+	{
+		"name": "dvarTest",
+		"scope": "item",
+		"syntax": "dvarTest text",
+		"kind": "property"
+	},
+	{
+		"name": "gamemsgwindowindex",
+		"scope": "item",
+		"syntax": "gamemsgwindowindex integer",
+		"kind": "property"
+	},
+	{
+		"name": "gamemsgwindowmode",
+		"scope": "item",
+		"syntax": "gamemsgwindowmode integer",
+		"kind": "property"
+	},
+	{
+		"name": "notselectable",
+		"scope": "item",
+		"syntax": "notselectable",
+		"kind": "property"
+	},
+	{
+		"name": "noscrollbars",
+		"scope": "item",
+		"syntax": "noscrollbars",
+		"kind": "property"
+	},
+	{
+		"name": "usepaging",
+		"scope": "item",
+		"syntax": "usepaging",
+		"kind": "property"
+	},
+	{
+		"name": "elementwidth",
+		"scope": "item",
+		"syntax": "elementwidth number",
+		"kind": "property"
+	},
+	{
+		"name": "elementheight",
+		"scope": "item",
+		"syntax": "elementheight number",
+		"kind": "property"
+	},
+	{
+		"name": "feeder",
+		"scope": "item",
+		"syntax": "feeder number",
+		"kind": "property"
+	},
+	{
+		"name": "elementtype",
+		"scope": "item",
+		"syntax": "elementtype integer",
+		"kind": "property"
+	},
+	{
+		"name": "doubleclick",
+		"scope": "item",
+		"syntax": "doubleclick { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "selectBorder",
+		"scope": "item",
+		"syntax": "selectBorder r [g [b [a]]]",
+		"description": "Omitted components default to zero, including alpha. Components may be numeric expressions.",
+		"kind": "property"
+	},
+	{
+		"name": "selectIcon",
+		"scope": "item",
+		"syntax": "selectIcon text",
+		"kind": "property"
+	},
+	{
+		"name": "localvar",
+		"scope": "item",
+		"syntax": "localvar text",
+		"kind": "property"
+	},
+	{
+		"name": "maxChars",
+		"scope": "item",
+		"syntax": "maxChars integer",
+		"kind": "property"
+	},
+	{
+		"name": "maxPaintChars",
+		"scope": "item",
+		"syntax": "maxPaintChars integer",
+		"kind": "property"
+	},
+	{
+		"name": "maxCharsGotoNext",
+		"scope": "item",
+		"syntax": "maxCharsGotoNext",
+		"kind": "property"
+	},
+	{
+		"name": "dvarEnumList",
+		"scope": "item",
+		"syntax": "dvarEnumList text",
+		"kind": "property"
+	},
+	{
+		"name": "spacing",
+		"scope": "item",
+		"syntax": "spacing integer",
+		"kind": "property"
+	},
+	{
+		"name": "speed",
+		"scope": "item",
+		"syntax": "speed integer",
+		"kind": "property"
+	},
+	{
+		"name": "newsfeed",
+		"scope": "item",
+		"syntax": "newsfeed integer",
+		"kind": "property"
+	},
+	{
+		"name": "visible",
+		"scope": "item",
+		"syntax": "visible expression",
+		"kind": "property"
+	},
+	{
+		"name": "disabled",
+		"scope": "item",
+		"syntax": "disabled expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp disabled",
+		"scope": "item",
+		"syntax": "exp disabled expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp text",
+		"scope": "item",
+		"syntax": "exp text expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp material",
+		"scope": "item",
+		"syntax": "exp material expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect X",
+		"scope": "item",
+		"syntax": "exp rect X expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect Y",
+		"scope": "item",
+		"syntax": "exp rect Y expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect W",
+		"scope": "item",
+		"syntax": "exp rect W expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp rect H",
+		"scope": "item",
+		"syntax": "exp rect H expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp forecolor R",
+		"scope": "item",
+		"syntax": "exp forecolor R expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp forecolor G",
+		"scope": "item",
+		"syntax": "exp forecolor G expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp forecolor B",
+		"scope": "item",
+		"syntax": "exp forecolor B expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp forecolor A",
+		"scope": "item",
+		"syntax": "exp forecolor A expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp forecolor RGB",
+		"scope": "item",
+		"syntax": "exp forecolor RGB expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp glowcolor R",
+		"scope": "item",
+		"syntax": "exp glowcolor R expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp glowcolor G",
+		"scope": "item",
+		"syntax": "exp glowcolor G expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp glowcolor B",
+		"scope": "item",
+		"syntax": "exp glowcolor B expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp glowcolor A",
+		"scope": "item",
+		"syntax": "exp glowcolor A expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp glowcolor RGB",
+		"scope": "item",
+		"syntax": "exp glowcolor RGB expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp backcolor R",
+		"scope": "item",
+		"syntax": "exp backcolor R expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp backcolor G",
+		"scope": "item",
+		"syntax": "exp backcolor G expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp backcolor B",
+		"scope": "item",
+		"syntax": "exp backcolor B expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp backcolor A",
+		"scope": "item",
+		"syntax": "exp backcolor A expression",
+		"kind": "property"
+	},
+	{
+		"name": "exp backcolor RGB",
+		"scope": "item",
+		"syntax": "exp backcolor RGB expression",
+		"kind": "property"
+	},
+	{
+		"name": "rect",
+		"scope": "item",
+		"syntax": "rect x y width height [horizontalAlign verticalAlign]",
+		"kind": "property"
+	},
+	{
+		"name": "execKey",
+		"scope": "item",
+		"syntax": "execKey \"key\" { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "execKeyInt",
+		"scope": "item",
+		"syntax": "execKeyInt keyCode { commands; }",
+		"kind": "event"
+	},
+	{
+		"name": "origin",
+		"scope": "item",
+		"syntax": "origin x y",
+		"kind": "property"
+	},
+	{
+		"name": "decodeEffect",
+		"scope": "item",
+		"syntax": "decodeEffect lettersInTime decayStartTime decayDuration",
+		"kind": "property"
+	},
+	{
+		"name": "dvarFloat",
+		"scope": "item",
+		"syntax": "dvarFloat name default min max",
+		"kind": "property"
+	},
+	{
+		"name": "dvarStrList",
+		"scope": "item",
+		"syntax": "dvarStrList { text value ... }",
+		"kind": "property"
+	},
+	{
+		"name": "dvarFloatList",
+		"scope": "item",
+		"syntax": "dvarFloatList { text number ... }",
+		"kind": "property"
+	},
+	{
+		"name": "columns",
+		"scope": "item",
+		"syntax": "columns count (position width maxChars alignment) ...",
+		"kind": "property"
+	},
+	{
+		"name": "enableDvar",
+		"scope": "item",
+		"syntax": "enableDvar { values }",
+		"kind": "property"
+	},
+	{
+		"name": "disableDvar",
+		"scope": "item",
+		"syntax": "disableDvar { values }",
+		"kind": "property"
+	},
+	{
+		"name": "showDvar",
+		"scope": "item",
+		"syntax": "showDvar { values }",
+		"kind": "property"
+	},
+	{
+		"name": "hideDvar",
+		"scope": "item",
+		"syntax": "hideDvar { values }",
+		"kind": "property"
+	},
+	{
+		"name": "focusDvar",
+		"scope": "item",
+		"syntax": "focusDvar { values }",
+		"kind": "property"
+	},
+	{
+		"name": "menuDef",
+		"scope": "global",
+		"syntax": "menuDef { name \"menu\" ... }",
+		"kind": "property"
+	},
+	{
+		"name": "functionDef",
+		"scope": "global",
+		"syntax": "functionDef { name \"function\" value expression }",
+		"kind": "property"
+	},
+	{
+		"name": "loadMenu",
+		"scope": "global",
+		"syntax": "loadMenu { \"path.menu\" }",
+		"kind": "property"
+	},
+	{
+		"name": "itemDef",
+		"scope": "menu",
+		"syntax": "itemDef { ... }",
+		"kind": "property"
+	},
+	{
+		"name": "name",
+		"scope": "function",
+		"syntax": "name \"function\"",
+		"kind": "property"
+	},
+	{
+		"name": "value",
+		"scope": "function",
+		"syntax": "value expression",
+		"kind": "property"
+	},
+	{
+		"name": "#include",
+		"scope": "directive",
+		"syntax": "#include",
+		"kind": "keyword"
+	},
+	{
+		"name": "#define",
+		"scope": "directive",
+		"syntax": "#define",
+		"kind": "keyword"
+	},
+	{
+		"name": "#undef",
+		"scope": "directive",
+		"syntax": "#undef",
+		"kind": "keyword"
+	},
+	{
+		"name": "#ifdef",
+		"scope": "directive",
+		"syntax": "#ifdef",
+		"kind": "keyword"
+	},
+	{
+		"name": "#ifndef",
+		"scope": "directive",
+		"syntax": "#ifndef",
+		"kind": "keyword"
+	},
+	{
+		"name": "#if",
+		"scope": "directive",
+		"syntax": "#if",
+		"kind": "keyword"
+	},
+	{
+		"name": "#elif",
+		"scope": "directive",
+		"syntax": "#elif",
+		"kind": "keyword"
+	},
+	{
+		"name": "#else",
+		"scope": "directive",
+		"syntax": "#else",
+		"kind": "keyword"
+	},
+	{
+		"name": "#endif",
+		"scope": "directive",
+		"syntax": "#endif",
+		"kind": "keyword"
+	},
+	{
+		"name": "if",
+		"scope": "event",
+		"syntax": "if (expression) { commands; }",
+		"kind": "keyword"
+	},
+	{
+		"name": "else",
+		"scope": "event",
+		"syntax": "else { commands; }",
+		"kind": "keyword"
+	},
+	{
+		"name": "uiScript",
+		"scope": "event",
+		"syntax": "uiScript command arguments;",
+		"kind": "keyword"
+	},
+	{
+		"name": "int",
+		"scope": "expression",
+		"syntax": "int(...)",
+		"kind": "function"
+	},
+	{
+		"name": "string",
+		"scope": "expression",
+		"syntax": "string(...)",
+		"kind": "function"
+	},
+	{
+		"name": "float",
+		"scope": "expression",
+		"syntax": "float(...)",
+		"kind": "function"
+	},
+	{
+		"name": "sin",
+		"scope": "expression",
+		"syntax": "sin(...)",
+		"kind": "function"
+	},
+	{
+		"name": "cos",
+		"scope": "expression",
+		"syntax": "cos(...)",
+		"kind": "function"
+	},
+	{
+		"name": "min",
+		"scope": "expression",
+		"syntax": "min(...)",
+		"kind": "function"
+	},
+	{
+		"name": "max",
+		"scope": "expression",
+		"syntax": "max(...)",
+		"kind": "function"
+	},
+	{
+		"name": "milliseconds",
+		"scope": "expression",
+		"syntax": "milliseconds(...)",
+		"kind": "function"
+	},
+	{
+		"name": "dvarint",
+		"scope": "expression",
+		"syntax": "dvarint(...)",
+		"kind": "function"
+	},
+	{
+		"name": "dvarbool",
+		"scope": "expression",
+		"syntax": "dvarbool(...)",
+		"kind": "function"
+	},
+	{
+		"name": "dvarfloat",
+		"scope": "expression",
+		"syntax": "dvarfloat(...)",
+		"kind": "function"
+	},
+	{
+		"name": "dvarstring",
+		"scope": "expression",
+		"syntax": "dvarstring(...)",
+		"kind": "function"
+	},
+	{
+		"name": "stat",
+		"scope": "expression",
+		"syntax": "stat(...)",
+		"kind": "function"
+	},
+	{
+		"name": "ui_active",
+		"scope": "expression",
+		"syntax": "ui_active(...)",
+		"kind": "function"
+	},
+	{
+		"name": "flashbanged",
+		"scope": "expression",
+		"syntax": "flashbanged(...)",
+		"kind": "function"
+	},
+	{
+		"name": "usingvehicle",
+		"scope": "expression",
+		"syntax": "usingvehicle(...)",
+		"kind": "function"
+	},
+	{
+		"name": "missilecam",
+		"scope": "expression",
+		"syntax": "missilecam(...)",
+		"kind": "function"
+	},
+	{
+		"name": "scoped",
+		"scope": "expression",
+		"syntax": "scoped(...)",
+		"kind": "function"
+	},
+	{
+		"name": "scopedthermal",
+		"scope": "expression",
+		"syntax": "scopedthermal(...)",
+		"kind": "function"
+	},
+	{
+		"name": "scoreboard_visible",
+		"scope": "expression",
+		"syntax": "scoreboard_visible(...)",
+		"kind": "function"
+	},
+	{
+		"name": "inkillcam",
+		"scope": "expression",
+		"syntax": "inkillcam(...)",
+		"kind": "function"
+	},
+	{
+		"name": "inkillcamnpc",
+		"scope": "expression",
+		"syntax": "inkillcamnpc(...)",
+		"kind": "function"
+	},
+	{
+		"name": "player",
+		"scope": "expression",
+		"syntax": "player(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getperk",
+		"scope": "expression",
+		"syntax": "getperk(...)",
+		"kind": "function"
+	},
+	{
+		"name": "selecting_location",
+		"scope": "expression",
+		"syntax": "selecting_location(...)",
+		"kind": "function"
+	},
+	{
+		"name": "selecting_direction",
+		"scope": "expression",
+		"syntax": "selecting_direction(...)",
+		"kind": "function"
+	},
+	{
+		"name": "team",
+		"scope": "expression",
+		"syntax": "team(...)",
+		"kind": "function"
+	},
+	{
+		"name": "otherteam",
+		"scope": "expression",
+		"syntax": "otherteam(...)",
+		"kind": "function"
+	},
+	{
+		"name": "marinesfield",
+		"scope": "expression",
+		"syntax": "marinesfield(...)",
+		"kind": "function"
+	},
+	{
+		"name": "opforfield",
+		"scope": "expression",
+		"syntax": "opforfield(...)",
+		"kind": "function"
+	},
+	{
+		"name": "menuisopen",
+		"scope": "expression",
+		"syntax": "menuisopen(...)",
+		"kind": "function"
+	},
+	{
+		"name": "writingdata",
+		"scope": "expression",
+		"syntax": "writingdata(...)",
+		"kind": "function"
+	},
+	{
+		"name": "inlobby",
+		"scope": "expression",
+		"syntax": "inlobby(...)",
+		"kind": "function"
+	},
+	{
+		"name": "inprivateparty",
+		"scope": "expression",
+		"syntax": "inprivateparty(...)",
+		"kind": "function"
+	},
+	{
+		"name": "privatepartyhost",
+		"scope": "expression",
+		"syntax": "privatepartyhost(...)",
+		"kind": "function"
+	},
+	{
+		"name": "privatepartyhostinlobby",
+		"scope": "expression",
+		"syntax": "privatepartyhostinlobby(...)",
+		"kind": "function"
+	},
+	{
+		"name": "aloneinparty",
+		"scope": "expression",
+		"syntax": "aloneinparty(...)",
+		"kind": "function"
+	},
+	{
+		"name": "adsjavelin",
+		"scope": "expression",
+		"syntax": "adsjavelin(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaplockblink",
+		"scope": "expression",
+		"syntax": "weaplockblink(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weapattacktop",
+		"scope": "expression",
+		"syntax": "weapattacktop(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weapattackdirect",
+		"scope": "expression",
+		"syntax": "weapattackdirect(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaplocking",
+		"scope": "expression",
+		"syntax": "weaplocking(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaplocked",
+		"scope": "expression",
+		"syntax": "weaplocked(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaplocktooclose",
+		"scope": "expression",
+		"syntax": "weaplocktooclose(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaplockscreenposx",
+		"scope": "expression",
+		"syntax": "weaplockscreenposx(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaplockscreenposy",
+		"scope": "expression",
+		"syntax": "weaplockscreenposy(...)",
+		"kind": "function"
+	},
+	{
+		"name": "secondsastime",
+		"scope": "expression",
+		"syntax": "secondsastime(...)",
+		"kind": "function"
+	},
+	{
+		"name": "tablelookup",
+		"scope": "expression",
+		"syntax": "tablelookup(...)",
+		"kind": "function"
+	},
+	{
+		"name": "tablelookupbyrow",
+		"scope": "expression",
+		"syntax": "tablelookupbyrow(...)",
+		"kind": "function"
+	},
+	{
+		"name": "tablegetrownum",
+		"scope": "expression",
+		"syntax": "tablegetrownum(...)",
+		"kind": "function"
+	},
+	{
+		"name": "locstring",
+		"scope": "expression",
+		"syntax": "locstring(...)",
+		"kind": "function"
+	},
+	{
+		"name": "localvarint",
+		"scope": "expression",
+		"syntax": "localvarint(...)",
+		"kind": "function"
+	},
+	{
+		"name": "localvarbool",
+		"scope": "expression",
+		"syntax": "localvarbool(...)",
+		"kind": "function"
+	},
+	{
+		"name": "localvarfloat",
+		"scope": "expression",
+		"syntax": "localvarfloat(...)",
+		"kind": "function"
+	},
+	{
+		"name": "localvarstring",
+		"scope": "expression",
+		"syntax": "localvarstring(...)",
+		"kind": "function"
+	},
+	{
+		"name": "timeleft",
+		"scope": "expression",
+		"syntax": "timeleft(...)",
+		"kind": "function"
+	},
+	{
+		"name": "secondsascountdown",
+		"scope": "expression",
+		"syntax": "secondsascountdown(...)",
+		"kind": "function"
+	},
+	{
+		"name": "gamemsgwndactive",
+		"scope": "expression",
+		"syntax": "gamemsgwndactive(...)",
+		"kind": "function"
+	},
+	{
+		"name": "gametypename",
+		"scope": "expression",
+		"syntax": "gametypename(...)",
+		"kind": "function"
+	},
+	{
+		"name": "gametype",
+		"scope": "expression",
+		"syntax": "gametype(...)",
+		"kind": "function"
+	},
+	{
+		"name": "gametypedescription",
+		"scope": "expression",
+		"syntax": "gametypedescription(...)",
+		"kind": "function"
+	},
+	{
+		"name": "scoreatrank",
+		"scope": "expression",
+		"syntax": "scoreatrank(...)",
+		"kind": "function"
+	},
+	{
+		"name": "friendsonline",
+		"scope": "expression",
+		"syntax": "friendsonline(...)",
+		"kind": "function"
+	},
+	{
+		"name": "spectatingclient",
+		"scope": "expression",
+		"syntax": "spectatingclient(...)",
+		"kind": "function"
+	},
+	{
+		"name": "spectatingfree",
+		"scope": "expression",
+		"syntax": "spectatingfree(...)",
+		"kind": "function"
+	},
+	{
+		"name": "statrangeanybitsset",
+		"scope": "expression",
+		"syntax": "statrangeanybitsset(...)",
+		"kind": "function"
+	},
+	{
+		"name": "keybinding",
+		"scope": "expression",
+		"syntax": "keybinding(...)",
+		"kind": "function"
+	},
+	{
+		"name": "actionslotusable",
+		"scope": "expression",
+		"syntax": "actionslotusable(...)",
+		"kind": "function"
+	},
+	{
+		"name": "hudfade",
+		"scope": "expression",
+		"syntax": "hudfade(...)",
+		"kind": "function"
+	},
+	{
+		"name": "maxrecommendedplayers",
+		"scope": "expression",
+		"syntax": "maxrecommendedplayers(...)",
+		"kind": "function"
+	},
+	{
+		"name": "acceptinginvite",
+		"scope": "expression",
+		"syntax": "acceptinginvite(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isintermission",
+		"scope": "expression",
+		"syntax": "isintermission(...)",
+		"kind": "function"
+	},
+	{
+		"name": "gamehost",
+		"scope": "expression",
+		"syntax": "gamehost(...)",
+		"kind": "function"
+	},
+	{
+		"name": "partyismissingmappack",
+		"scope": "expression",
+		"syntax": "partyismissingmappack(...)",
+		"kind": "function"
+	},
+	{
+		"name": "partymissingmappackerror",
+		"scope": "expression",
+		"syntax": "partymissingmappackerror(...)",
+		"kind": "function"
+	},
+	{
+		"name": "anynewmappacks",
+		"scope": "expression",
+		"syntax": "anynewmappacks(...)",
+		"kind": "function"
+	},
+	{
+		"name": "amiselected",
+		"scope": "expression",
+		"syntax": "amiselected(...)",
+		"kind": "function"
+	},
+	{
+		"name": "partystatusstring",
+		"scope": "expression",
+		"syntax": "partystatusstring(...)",
+		"kind": "function"
+	},
+	{
+		"name": "attachedcontrollercount",
+		"scope": "expression",
+		"syntax": "attachedcontrollercount(...)",
+		"kind": "function"
+	},
+	{
+		"name": "issplitscreenonlinepossible",
+		"scope": "expression",
+		"syntax": "issplitscreenonlinepossible(...)",
+		"kind": "function"
+	},
+	{
+		"name": "splitscreenplayercount",
+		"scope": "expression",
+		"syntax": "splitscreenplayercount(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getplayerdata",
+		"scope": "expression",
+		"syntax": "getplayerdata(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getplayerdatasplitscreen",
+		"scope": "expression",
+		"syntax": "getplayerdatasplitscreen(...)",
+		"kind": "function"
+	},
+	{
+		"name": "experienceforlevel",
+		"scope": "expression",
+		"syntax": "experienceforlevel(...)",
+		"kind": "function"
+	},
+	{
+		"name": "levelforexperience",
+		"scope": "expression",
+		"syntax": "levelforexperience(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isitemunlocked",
+		"scope": "expression",
+		"syntax": "isitemunlocked(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isitemunlockedsplitscreen",
+		"scope": "expression",
+		"syntax": "isitemunlockedsplitscreen(...)",
+		"kind": "function"
+	},
+	{
+		"name": "debugprint",
+		"scope": "expression",
+		"syntax": "debugprint(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getplayerdataanybooltrue",
+		"scope": "expression",
+		"syntax": "getplayerdataanybooltrue(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaponclassnew",
+		"scope": "expression",
+		"syntax": "weaponclassnew(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaponname",
+		"scope": "expression",
+		"syntax": "weaponname(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isreloading",
+		"scope": "expression",
+		"syntax": "isreloading(...)",
+		"kind": "function"
+	},
+	{
+		"name": "savegameavailable",
+		"scope": "expression",
+		"syntax": "savegameavailable(...)",
+		"kind": "function"
+	},
+	{
+		"name": "unlockeditemcount",
+		"scope": "expression",
+		"syntax": "unlockeditemcount(...)",
+		"kind": "function"
+	},
+	{
+		"name": "unlockeditemcountsplitscreen",
+		"scope": "expression",
+		"syntax": "unlockeditemcountsplitscreen(...)",
+		"kind": "function"
+	},
+	{
+		"name": "unlockeditem",
+		"scope": "expression",
+		"syntax": "unlockeditem(...)",
+		"kind": "function"
+	},
+	{
+		"name": "unlockeditemsplitscreen",
+		"scope": "expression",
+		"syntax": "unlockeditemsplitscreen(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailsubject",
+		"scope": "expression",
+		"syntax": "mailsubject(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailfrom",
+		"scope": "expression",
+		"syntax": "mailfrom(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailreceived",
+		"scope": "expression",
+		"syntax": "mailreceived(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailbody",
+		"scope": "expression",
+		"syntax": "mailbody(...)",
+		"kind": "function"
+	},
+	{
+		"name": "maillootlocalized",
+		"scope": "expression",
+		"syntax": "maillootlocalized(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailgivesloot",
+		"scope": "expression",
+		"syntax": "mailgivesloot(...)",
+		"kind": "function"
+	},
+	{
+		"name": "anynewmail",
+		"scope": "expression",
+		"syntax": "anynewmail(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailtimetofollowup",
+		"scope": "expression",
+		"syntax": "mailtimetofollowup(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailloottype",
+		"scope": "expression",
+		"syntax": "mailloottype(...)",
+		"kind": "function"
+	},
+	{
+		"name": "mailranlottery",
+		"scope": "expression",
+		"syntax": "mailranlottery(...)",
+		"kind": "function"
+	},
+	{
+		"name": "lotterylootlocalized",
+		"scope": "expression",
+		"syntax": "lotterylootlocalized(...)",
+		"kind": "function"
+	},
+	{
+		"name": "radarisjammed",
+		"scope": "expression",
+		"syntax": "radarisjammed(...)",
+		"kind": "function"
+	},
+	{
+		"name": "radarjamintensity",
+		"scope": "expression",
+		"syntax": "radarjamintensity(...)",
+		"kind": "function"
+	},
+	{
+		"name": "radarisenabled",
+		"scope": "expression",
+		"syntax": "radarisenabled(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isempjammed",
+		"scope": "expression",
+		"syntax": "isempjammed(...)",
+		"kind": "function"
+	},
+	{
+		"name": "playerads",
+		"scope": "expression",
+		"syntax": "playerads(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaponheatactive",
+		"scope": "expression",
+		"syntax": "weaponheatactive(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaponheatvalue",
+		"scope": "expression",
+		"syntax": "weaponheatvalue(...)",
+		"kind": "function"
+	},
+	{
+		"name": "weaponheatoverheated",
+		"scope": "expression",
+		"syntax": "weaponheatoverheated(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getsplashtext",
+		"scope": "expression",
+		"syntax": "getsplashtext(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getsplashdescription",
+		"scope": "expression",
+		"syntax": "getsplashdescription(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getsplashmaterial",
+		"scope": "expression",
+		"syntax": "getsplashmaterial(...)",
+		"kind": "function"
+	},
+	{
+		"name": "splashhasicon",
+		"scope": "expression",
+		"syntax": "splashhasicon(...)",
+		"kind": "function"
+	},
+	{
+		"name": "splashrownum",
+		"scope": "expression",
+		"syntax": "splashrownum(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getfocuseditemname",
+		"scope": "expression",
+		"syntax": "getfocuseditemname(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getfocuseditemx",
+		"scope": "expression",
+		"syntax": "getfocuseditemx(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getfocuseditemy",
+		"scope": "expression",
+		"syntax": "getfocuseditemy(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getfocuseditemwidth",
+		"scope": "expression",
+		"syntax": "getfocuseditemwidth(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getfocuseditemheight",
+		"scope": "expression",
+		"syntax": "getfocuseditemheight(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getitemx",
+		"scope": "expression",
+		"syntax": "getitemx(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getitemy",
+		"scope": "expression",
+		"syntax": "getitemy(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getitemwidth",
+		"scope": "expression",
+		"syntax": "getitemwidth(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getitemheight",
+		"scope": "expression",
+		"syntax": "getitemheight(...)",
+		"kind": "function"
+	},
+	{
+		"name": "playlist",
+		"scope": "expression",
+		"syntax": "playlist(...)",
+		"kind": "function"
+	},
+	{
+		"name": "scoreboardexternalmutenotice",
+		"scope": "expression",
+		"syntax": "scoreboardexternalmutenotice(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getclientmatchdata",
+		"scope": "expression",
+		"syntax": "getclientmatchdata(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getclientmatchdatadef",
+		"scope": "expression",
+		"syntax": "getclientmatchdatadef(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getmapname",
+		"scope": "expression",
+		"syntax": "getmapname(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getmapimage",
+		"scope": "expression",
+		"syntax": "getmapimage(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getmapcustom",
+		"scope": "expression",
+		"syntax": "getmapcustom(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getmigrationstatus",
+		"scope": "expression",
+		"syntax": "getmigrationstatus(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getplayercardinfo",
+		"scope": "expression",
+		"syntax": "getplayercardinfo(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isofflineprofileselected",
+		"scope": "expression",
+		"syntax": "isofflineprofileselected(...)",
+		"kind": "function"
+	},
+	{
+		"name": "coopplayer",
+		"scope": "expression",
+		"syntax": "coopplayer(...)",
+		"kind": "function"
+	},
+	{
+		"name": "iscoop",
+		"scope": "expression",
+		"syntax": "iscoop(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getpartystatus",
+		"scope": "expression",
+		"syntax": "getpartystatus(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getsearchparams",
+		"scope": "expression",
+		"syntax": "getsearchparams(...)",
+		"kind": "function"
+	},
+	{
+		"name": "gettimeplayed",
+		"scope": "expression",
+		"syntax": "gettimeplayed(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isselectedplayerfriend",
+		"scope": "expression",
+		"syntax": "isselectedplayerfriend(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getcharbyindex",
+		"scope": "expression",
+		"syntax": "getcharbyindex(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getprofiledata",
+		"scope": "expression",
+		"syntax": "getprofiledata(...)",
+		"kind": "function"
+	},
+	{
+		"name": "isprofilesignedin",
+		"scope": "expression",
+		"syntax": "isprofilesignedin(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getwaitpopupstatus",
+		"scope": "expression",
+		"syntax": "getwaitpopupstatus(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getnattype",
+		"scope": "expression",
+		"syntax": "getnattype(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getlocalizednattype",
+		"scope": "expression",
+		"syntax": "getlocalizednattype(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getadjustedsafeareahorizontal",
+		"scope": "expression",
+		"syntax": "getadjustedsafeareahorizontal(...)",
+		"kind": "function"
+	},
+	{
+		"name": "getadjustedsafeareavertical",
+		"scope": "expression",
+		"syntax": "getadjustedsafeareavertical(...)",
+		"kind": "function"
+	},
+	{
+		"name": "connectioninfo",
+		"scope": "expression",
+		"syntax": "connectioninfo(...)",
+		"kind": "function"
+	},
+	{
+		"name": "offlineprofilecansave",
+		"scope": "expression",
+		"syntax": "offlineprofilecansave(...)",
+		"kind": "function"
+	},
+	{
+		"name": "allsplitscreenprofilescansave",
+		"scope": "expression",
+		"syntax": "allsplitscreenprofilescansave(...)",
+		"kind": "function"
+	},
+	{
+		"name": "allsplitscreenprofilesaresignedin",
+		"scope": "expression",
+		"syntax": "allsplitscreenprofilesaresignedin(...)",
+		"kind": "function"
+	},
+	{
+		"name": "coopready",
+		"scope": "expression",
+		"syntax": "coopready(...)",
+		"kind": "function"
+	}
+]

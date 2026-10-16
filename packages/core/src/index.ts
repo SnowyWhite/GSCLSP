@@ -20,3 +20,7 @@ export { parseGlobalSegments } from "./parse/globalSegments";
 export { parseIncludes } from "./parse/includes";
 export { parseCallableDefs } from "./parse/callableDefs";
 export { parseCallableUsages } from "./parse/callableUsages";
+
+export * from "./menu/catalog";
+export * from "./menu/parse";
+export * from "./menu/grammar";

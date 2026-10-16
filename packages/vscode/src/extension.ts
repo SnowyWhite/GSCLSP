@@ -17,7 +17,7 @@ export async function activate(context: ExtensionContext) {
 	};
 	// Settings are pulled by the server (`workspace/configuration`, section `GSC`).
 	const clientOptions: LanguageClientOptions = {
-		documentSelector: [{ language: "gsc" }],
+		documentSelector: [{ language: "gsc" }, { language: "menu" }],
 	};
 
 	client = new LanguageClient("gsc", "GSCLSP", serverOptions, clientOptions);
